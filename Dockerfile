@@ -1,23 +1,46 @@
-FROM php:8.2-cli
+# Используем образ с веб-сервером
+FROM php:8.2-apache
 
+# Установка зависимостей
 RUN apt-get update && apt-get install -y \
     libpq-dev \
-    libzip-dev
-RUN docker-php-ext-install pdo pdo_pgsql zip
+    libzip-dev \
+    zip \
+    && docker-php-ext-install pdo pdo_pgsql zip \
+    && apt-get clean
 
+# Установка Composer
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
-    && php composer-setup.php --install-dir=/usr/local/bin --filename=composer \
-    && php -r "unlink('composer-setup.php');"
+# Установка Node.js (только если фронтенд нужен)
+RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
+    && apt-get install -y nodejs \
+    && npm install -g npm
 
-RUN curl -sL https://deb.nodesource.com/setup_20.x | bash -
-RUN apt-get install -y nodejs
+# 1. Копируем только файлы для установки зависимостей
+COPY composer.json composer.lock package.json package-lock.json* ./
 
-WORKDIR /app
+# 2. Установка зависимостей (с кешированием)
+RUN composer install --no-dev --no-scripts --no-autoloader \
+    && ([ -f package-lock.json ] && npm ci || echo "No package-lock.json, skipping npm") \
+    && composer clear-cache
 
+# 3. Копируем весь проект
+WORKDIR /var/www/html
 COPY . .
-RUN composer install
-RUN npm ci
-RUN npm run build
 
-CMD ["bash", "-c", "php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=$PORT"]
+# 4. Оптимизация Laravel и сборка фронтенда
+RUN composer dump-autoload --optimize \
+    && php artisan config:cache \
+    && php artisan route:cache \
+    && php artisan view:cache \
+    && ([ -f package-lock.json ] && npm run build || echo "No frontend build required") \
+    && chmod -R 775 storage bootstrap/cache
+
+# Настройка Apache
+RUN a2enmod rewrite \
+    && sed -i 's!/var/www/html!/var/www/html/public!g' /etc/apache2/sites-available/000-default.conf \
+    && sed -i '/<Directory \/var\/www\/>/,/<\/Directory>/ s/AllowOverride None/AllowOverride All/' /etc/apache2/apache2.conf
+
+# Запуск миграций и сервера
+CMD ["bash", "-c", "php artisan migrate --force && apache2-foreground"]
