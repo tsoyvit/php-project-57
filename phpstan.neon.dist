@@ -1,0 +1,18 @@
+includes:
+    - vendor/larastan/larastan/extension.neon
+    - vendor/nesbot/carbon/extension.neon
+
+parameters:
+    paths:
+        - app/
+        - routes/
+    level: 5
+
+    checkModelProperties: true
+
+#    ignoreErrors:
+#        - '#Call to an undefined method Illuminate\\.*#'
+#        - '#Property App\\Models\\.* not found#'
+
+
+    # memory_limit: "2G"
