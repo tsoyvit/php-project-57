@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<ruleset name="LaravelProject">
+    <description>PHP_CodeSniffer ruleset for Laravel project</description>
+
+    <!-- Подключаем PSR-12 как основной стандарт -->
+    <rule ref="PSR12"/>
+
+    <!-- Проверяем эти директории -->
+    <file>app</file>
+    <file>routes</file>
+
+    <!-- Игнорируем frontend-сборку и сторонние файлы -->
+    <exclude-pattern>public/build/*</exclude-pattern>
+    <exclude-pattern>public/js/*</exclude-pattern>
+    <exclude-pattern>public/css/*</exclude-pattern>
+    <exclude-pattern>vendor/*</exclude-pattern>
+    <exclude-pattern>node_modules/*</exclude-pattern>
+
+    <!-- Отключаем правило, на которое ругается index.php (PSR1 требует без side effects) -->
+    <rule ref="PSR1.Files.SideEffects.FoundWithSymbols">
+        <severity>0</severity>
+    </rule>
+
+</ruleset>
