@@ -55,12 +55,13 @@ jobs:
       - name: Run PHPUnit with coverage
         env:
           DB_CONNECTION: pgsql
-          DB_HOST: 127.0.0.1
+          DB_HOST: postgres
           DB_PORT: 5432
           DB_DATABASE: test_db
           DB_USERNAME: postgres
           DB_PASSWORD: password
         run: |
+          php artisan migrate --force
           mkdir -p reports
           ./vendor/bin/phpunit --coverage-clover=reports/coverage.xml
 
