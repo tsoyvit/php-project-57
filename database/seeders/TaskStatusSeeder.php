@@ -14,8 +14,6 @@ class TaskStatusSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('task_statuses')->truncate();
-
         $statuses = [
            ['name' => 'новый'],
            ['name' => 'в работе'],
@@ -24,7 +22,7 @@ class TaskStatusSeeder extends Seeder
         ];
 
         foreach ($statuses as $status) {
-            TaskStatus::create($status);
+            TaskStatus::updateOrCreate(['name' => $status['name']], $status);
         }
     }
 }
