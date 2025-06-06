@@ -34,7 +34,7 @@ class ShowTaskTest extends TestCase
 
     public function test_return_404_for_non_existent_task()
     {
-        $response = $this->get(route('tasks.show', 'randomId'));
+        $response = $this->get(route('tasks.show', 9999));
         $response->assertStatus(404);
     }
 
