@@ -2,11 +2,12 @@
 
 namespace App\Http\Requests;
 
+use App\Models\TaskStatus;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class TaskStatusRequest extends FormRequest
+class TaskRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,11 +27,11 @@ class TaskStatusRequest extends FormRequest
         return [
             'name' => [
                 'required',
-                'string',
-                'max:255',
-                Rule::unique('task_statuses', 'name')
-                    ->ignore($this->route('task_status'))
-            ]
+                Rule::unique('tasks', 'name')->ignore($this->route('task'))
+            ],
+            'description' => ['nullable', 'string'],
+            'status_id' => ['required', 'integer', 'exists:task_statuses,id'],
+            'assigned_to_id' => ['nullable', 'integer', 'exists:users,id'],
         ];
     }
 
@@ -38,6 +39,7 @@ class TaskStatusRequest extends FormRequest
     {
         return [
             'name.required' => __('flash.This field is required'),
+            'status_id.required' => __('flash.This field is required'),
         ];
     }
 }

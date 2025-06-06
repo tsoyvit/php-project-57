@@ -12,7 +12,7 @@
 
             <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">{{ __('app.tasks') }}</a>
+                    <a class="nav-link" href="{{ route('tasks.index') }}">{{ __('app.tasks') }}</a>
                 </li>
 
                 <li class="nav-item">

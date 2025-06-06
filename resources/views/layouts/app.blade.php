@@ -8,10 +8,10 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 
 </head>
 <body>
-
 
 <main class="flex-grow-1">
 
@@ -30,12 +30,6 @@
     <div class="container mb-4">
         @yield('content')
     </div>
-
-
-
-
-
-
 
 </main>
 

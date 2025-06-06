@@ -12,7 +12,7 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->alias([
-            'auth.403' => \App\Http\Middleware\AuthenticateWithForbidden::class,
+            'auth.forbid' => \App\Http\Middleware\AuthenticateWithForbidden::class,
         ]);
 
     })

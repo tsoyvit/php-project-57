@@ -19,4 +19,5 @@ return [
     'delete' => 'Delete',
     'edit' => 'Edit',
     'update' => 'Update',
+
 ];

@@ -13,5 +13,6 @@ return [
     'created_at' => 'Дата создания',
     'actions' => 'Действия',
     'confirm_delete' => 'Вы уверены?',
-    'change_status' => 'Изменение статуса'
+    'change_status' => 'Изменение статуса',
+    'delete' => 'Удалить'
 ];
