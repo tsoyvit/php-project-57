@@ -43,9 +43,8 @@ class UpdateTaskTest extends TestCase
     {
         auth()->logout();
 
-        $response = $this->patch(route('tasks.update', $this->task), $this->updatedTaskData);
-
-        $response->assertForbidden();
+        $this->patch(route('tasks.update', $this->task), $this->updatedTaskData)
+            ->assertForbidden();
     }
 
     public function test_authenticated_user_can_update_task()

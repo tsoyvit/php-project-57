@@ -38,8 +38,8 @@ class StoreTaskTest extends TestCase
     {
         auth()->logout();
 
-        $response = $this->post(route('tasks.store'), $this->taskData);
-        $response->assertForbidden();
+        $this->post(route('tasks.store'), $this->taskData)
+            ->assertForbidden();
     }
 
     public function test_authorized_user_can_store_task()

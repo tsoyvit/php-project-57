@@ -31,3 +31,14 @@
     <div class="invalid-feedback d-block">{{ $message }}</div>
     @enderror
 </div>
+
+<div class="mb-3">
+    {{ html()->label(__('label.labels'))->for('labels')->class('form-label') }}
+
+    {{ html()->select('labels[]', $labels->toArray(), $task->labels->pluck('id')->toArray())
+        ->multiple()
+        ->class('form-select')
+        ->attribute('aria-label', 'Multiple select example')
+        ->id('labels')
+    }}
+</div>

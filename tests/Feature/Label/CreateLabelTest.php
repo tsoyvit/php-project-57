@@ -1,17 +1,18 @@
 <?php
 
-namespace Tests\Feature\Task;
+namespace Tests\Feature\Label;
 
-use App\Models\Task;
+use App\Models\Label;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Testing\TestResponse;
 use Tests\TestCase;
 
-class CreateTaskTest extends TestCase
+class CreateLabelTest extends TestCase
 {
     use RefreshDatabase;
+
     private TestResponse $response;
 
     public function setUp(): void
@@ -21,14 +22,13 @@ class CreateTaskTest extends TestCase
         $user = User::factory()->create();
         $this->actingAs($user);
 
-        $this->response = $this->get(route('tasks.create'));
+        $this->response = $this->get(route('labels.create'));
     }
 
-    public function test_guest_cannot_access_create_task()
+    public function test_guest_cannot_access_create_label()
     {
         auth()->logout();
-
-        $this->get(route('tasks.create'))->assertForbidden();
+        $this->get(route('labels.create'))->assertForbidden();
     }
 
     public function test_authorized_user_can_create_task()
@@ -38,14 +38,12 @@ class CreateTaskTest extends TestCase
 
     public function test_render_correct_view()
     {
-        $this->response->assertViewIs('task.create');
+        $this->response->assertViewIs('label.create');
     }
 
     public function test_view_contains_required_data()
     {
-        $this->response->assertViewHas(['taskStatuses', 'assignees']);
-
-        $this->response->assertViewHas('task', fn ($task) =>
-            $task instanceof Task && !$task->exists);
+        $this->response->assertViewHas('label', fn ($label) =>
+            $label instanceof Label && !$label->exists);
     }
 }

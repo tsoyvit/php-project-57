@@ -7,6 +7,7 @@ use Eloquent;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Carbon;
 
 /**
@@ -35,6 +36,8 @@ use Illuminate\Support\Carbon;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Task whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Task whereStatusId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Task whereUpdatedAt($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Label> $labels
+ * @property-read int|null $labels_count
  * @mixin Eloquent
  */
 class Task extends Model
@@ -63,5 +66,10 @@ class Task extends Model
     public function assignee(): BelongsTo
     {
         return $this->belongsTo(User::class, 'assigned_to_id');
+    }
+
+    public function labels(): BelongsToMany
+    {
+        return $this->belongsToMany(Label::class);
     }
 }

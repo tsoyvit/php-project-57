@@ -1,20 +1,20 @@
 @extends('layouts.app')
-@section('h1', __('task.create task'))
+@section('h1', __('label.create label'))
 @section('content')
 
     <div class="container">
         <div class="row">
             <div class="col-md-4 ml-0 p-0">
 
-                {{ html()->modelForm($task, 'POST', route('tasks.store'))
+                {{ html()->modelForm($label, 'POST', route('labels.store'))
                     ->class('needs-validation')
                     ->novalidate()
                     ->open() }}
 
-                @include('task.form')
+                @include('label.form')
 
                 <div class="mb-3">
-                    {{ html()->submit(__('task.create'))->class('btn btn-primary') }}
+                    {{ html()->submit(__('label.create'))->class('btn btn-primary') }}
                 </div>
 
                 {{ html()->closeModelForm() }}

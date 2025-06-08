@@ -3,11 +3,11 @@
 @section('content')
 
     @auth
-    <div class="mb-4">
-        <a class="btn btn-primary" href="{{ route('tasks.create') }}">
-            {{ __('task.create task') }}
-        </a>
-    </div>
+        <div class="mb-4">
+            <a class="btn btn-primary" href="{{ route('tasks.create') }}">
+                {{ __('task.create task') }}
+            </a>
+        </div>
     @endauth
 
     <div class="card shadow-sm overflow-hidden">
@@ -30,16 +30,19 @@
                     </thead>
 
                     <tbody>
+
                     @foreach($tasks as $task)
                         <tr>
                             <td>{{ $task->id }}</td>
                             <td>{{ $task->status->name }}</td>
                             <td>
-                                <a href="{{ route('tasks.show', $task) }}" class="text-decoration-none">{{ $task->name }}</a>
+                                <a href="{{ route('tasks.show', $task) }}"
+                                   class="text-decoration-none">{{ $task->name }}</a>
                             </td>
                             <td>{{ $task->creator->name }}</td>
                             <td>{{ $task->assignee->name ?? ''}}</td>
                             <td>{{ $task->created_at->format('d.m.Y') }}</td>
+
                             @auth
                                 <td>
                                     <div class="d-flex gap-2">
@@ -49,23 +52,25 @@
                                         </a>
 
                                         @can('delete', $task)
-                                        <form action="{{ route('tasks.destroy', $task) }}" method="POST"
-                                              class="d-inline">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit"
-                                                    class="btn btn-link text-danger p-0 text-decoration-none"
-                                                    onclick="return confirm('{{ __('task.are you sure?') }}')">
-                                                {{ __('task.delete') }}
-                                            </button>
-                                        </form>
+                                            <form action="{{ route('tasks.destroy', $task) }}" method="POST"
+                                                  class="d-inline">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit"
+                                                        class="btn btn-link text-danger p-0 text-decoration-none"
+                                                        onclick="return confirm('{{ __('task.are you sure?') }}')">
+                                                    {{ __('task.delete') }}
+                                                </button>
+                                            </form>
                                         @endcan
 
                                     </div>
                                 </td>
                             @endauth
+
                         </tr>
                     @endforeach
+
                     </tbody>
                 </table>
             </div>

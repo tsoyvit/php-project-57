@@ -20,7 +20,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="#">{{ __('app.tags') }}</a>
+                    <a class="nav-link" href="{{ route('labels.index') }}">{{ __('app.tags') }}</a>
                 </li>
             </ul>
 

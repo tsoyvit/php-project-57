@@ -1,3 +1,3 @@
-<x-app-layout>
-    HOME
-</x-app-layout>
+@extends('layouts.app')
+@section('h1', 'HOME')
+

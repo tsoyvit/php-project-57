@@ -19,13 +19,14 @@ class StoreTaskStatusTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
+
         $user = User::factory()->create();
+        $this->actingAs($user);
 
         $this->taskStatusData = [
             'name' => 'taskStatus name',
         ];
 
-        $this->actingAs($user);
         $this->response = $this->post(route('task_statuses.store'),
             $this->taskStatusData);
     }
@@ -34,8 +35,8 @@ class StoreTaskStatusTest extends TestCase
     {
         auth()->logout();
 
-        $response = $this->post(route('task_statuses.store'), $this->taskStatusData);
-        $response->assertForbidden();
+        $this->post(route('task_statuses.store'), $this->taskStatusData)
+            ->assertForbidden();
     }
 
     public function test_authorized_user_can_store_task_status()

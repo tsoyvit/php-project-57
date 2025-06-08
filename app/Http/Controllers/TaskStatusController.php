@@ -37,6 +37,7 @@ class TaskStatusController extends Controller
     public function update(TaskStatusRequest $request, TaskStatus $taskStatus): RedirectResponse
     {
         $taskStatus->update($request->validated());
+
         return redirect(route('task_statuses.index'))
             ->with('success', __('flash.Status changed successfully'));
     }

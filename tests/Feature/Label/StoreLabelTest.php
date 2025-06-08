@@ -1,0 +1,58 @@
+<?php
+
+namespace Tests\Feature\Label;
+
+use App\Models\Label;
+use App\Models\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Testing\TestResponse;
+use Tests\TestCase;
+
+class StoreLabelTest extends TestCase
+{
+    use RefreshDatabase;
+
+    private TestResponse $response;
+    private array $labelData;
+
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        $user = User::factory()->create();
+        $this->actingAs($user);
+
+        $this->labelData = [
+            'name' => 'test',
+            'description' => 'test',
+        ];
+
+        $this->response = $this->post(route('labels.store'), $this->labelData);
+
+    }
+
+    public function  test_quest_cannot_access_store()
+    {
+        auth()->logout();
+
+        $this->post(route('labels.store'), $this->labelData)
+            ->assertForbidden();
+    }
+
+    public function test_authorized_user_can_store_label()
+    {
+        $this->response->assertRedirect(route('labels.index'));
+    }
+
+    public function test_return_flash_success_message()
+    {
+        $this->response->assertSessionHas('success',
+            __('flash.The tag created successfully'));
+    }
+
+    public function test_database_has_new_label()
+    {
+        $this->assertDatabaseHas('labels', $this->labelData);
+    }
+}

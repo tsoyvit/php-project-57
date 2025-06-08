@@ -26,8 +26,8 @@ class DestroyTaskStatusTest extends TestCase
 
     public function test_quest_cannot_access_destroy()
     {
-        $response = $this->delete(route('task_statuses.destroy', $this->taskStatus));
-        $response->assertForbidden();
+        $this->delete(route('task_statuses.destroy', $this->taskStatus))
+            ->assertForbidden();
     }
 
     public function test_destroy_cannot_be_destroyed_if_status_used()

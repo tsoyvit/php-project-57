@@ -29,7 +29,7 @@ class IndexTaskStatusTest extends TestCase
         $this->response->assertOk();
     }
 
-    public function test_render_correct_view()
+    public function test_index_render_correct_view()
     {
         $this->response->assertViewIs('task_status.index');
     }

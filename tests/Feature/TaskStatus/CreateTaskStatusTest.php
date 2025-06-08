@@ -27,9 +27,7 @@ class CreateTaskStatusTest extends TestCase
     public function test_guest_cannot_access_create_task()
     {
         auth()->logout();
-
-        $response = $this->get(route('task_statuses.create'));
-        $response->assertForbidden();
+        $this->get(route('task_statuses.create'))->assertForbidden();
     }
 
     public function test_authorized_user_can_create_task()

@@ -30,16 +30,14 @@ class DestroyTaskTest extends TestCase
 
     public function test_quest_cannot_access_destroy()
     {
-        $response = $this->delete(route('tasks.destroy', $this->task));
-        $response->assertForbidden();
+        $this->delete(route('tasks.destroy', $this->task))
+            ->assertForbidden();
     }
 
     public function test_non_author_cannot_destroy_task()
     {
         $this->actingAs($this->nonAuthor);
-
-        $response = $this->delete(route('tasks.destroy', $this->task));
-        $response->assertForbidden();
+        $this->delete(route('tasks.destroy', $this->task))->assertForbidden();
     }
 
     public function test_task_deleted_from_database()

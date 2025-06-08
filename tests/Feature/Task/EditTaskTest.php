@@ -31,8 +31,8 @@ class EditTaskTest extends TestCase
     {
         auth()->logout();
 
-        $response = $this->get(route('tasks.edit', $this->task));
-        $response->assertForbidden();
+        $this->get(route('tasks.edit', $this->task))
+            ->assertForbidden();
     }
 
     public function test_authorized_user_can_edit_task()

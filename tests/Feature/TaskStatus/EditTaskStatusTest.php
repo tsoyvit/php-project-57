@@ -31,8 +31,8 @@ class EditTaskStatusTest extends TestCase
     {
         auth()->logout();
 
-        $response = $this->get(route('task_statuses.edit', $this->taskStatus));
-        $response->assertForbidden();
+        $this->get(route('task_statuses.edit', $this->taskStatus))
+            ->assertForbidden();
     }
 
 

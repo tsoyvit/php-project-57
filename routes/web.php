@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\LabelController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\TaskStatusController;
@@ -26,7 +27,10 @@ Route::resource('task_statuses', TaskStatusController::class)
 Route::get('task_statuses', [TaskStatusController::class, 'index'])
     ->name('task_statuses.index');
 
-Route::get('task_statuses/{task_status}', fn () => abort(404));
+Route::get(
+    'task_statuses/{task_status}',
+    fn () => abort(403, 'This action is unauthorized.')
+);
 
 
 Route::resource('tasks', TaskController::class)
@@ -35,6 +39,16 @@ Route::resource('tasks', TaskController::class)
 
 Route::resource('tasks', TaskController::class)
     ->only('index', 'show');
+
+
+Route::resource('labels', LabelController::class)
+    ->except('index', 'show')
+    ->middleware('auth.forbid');
+
+Route::get('labels', [LabelController::class, 'index'])
+    ->name('labels.index');
+
+Route::get('labels/{label}', fn () => abort(403, 'This action is unauthorized.'));
 
 
 

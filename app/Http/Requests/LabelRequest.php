@@ -2,12 +2,11 @@
 
 namespace App\Http\Requests;
 
-use App\Models\TaskStatus;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class TaskRequest extends FormRequest
+class LabelRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,21 +26,22 @@ class TaskRequest extends FormRequest
         return [
             'name' => [
                 'required',
-                Rule::unique('tasks', 'name')->ignore($this->route('task'))
+                'string',
+                'max:255',
+                Rule::unique('labels', 'name')
+                ->ignore($this->route('labels'))
             ],
-            'description' => ['nullable', 'string'],
-            'status_id' => ['required', 'integer', 'exists:task_statuses,id'],
-            'assigned_to_id' => ['nullable', 'integer', 'exists:users,id'],
-            'labels' => ['nullable', 'array'],
-            'labels.*' => [ 'integer', 'exists:labels,id'],
+            'description' => [
+                'nullable',
+                'string',
+            ],
         ];
     }
 
     public function messages(): array
     {
         return [
-            'name.required' => __('flash.This field is required'),
-            'status_id.required' => __('flash.This field is required'),
+            'name.unique' => __('flash.A label with this name already exists'),
         ];
     }
 }
