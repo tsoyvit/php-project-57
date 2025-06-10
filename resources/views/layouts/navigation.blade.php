@@ -31,11 +31,11 @@
                     {{ html()->form()->close() }}
                 @else
                     {{ html()->form('GET', route('login'))->open() }}
-                    {{ html()->submit('Войти')->class('btn btn-primary') }}
+                    {{ html()->submit(__('app.login'))->class('btn btn-primary') }}
                     {{ html()->form()->close() }}
 
                     {{ html()->form('GET', route('register'))->open() }}
-                    {{ html()->submit('Зарегистрировать')->class('btn btn-primary') }}
+                    {{ html()->submit(__('app.register'))->class('btn btn-primary') }}
                     {{ html()->form()->close() }}
                 @endauth
             </div>
