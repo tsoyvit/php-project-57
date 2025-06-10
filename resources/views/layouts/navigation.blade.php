@@ -31,7 +31,7 @@
                     {{ html()->form()->close() }}
                 @else
                     {{ html()->form('GET', route('login'))->open() }}
-                    {{ html()->submit(__('app.login'))->class('btn btn-primary') }}
+                    {{ html()->submit('Вход')->class('btn btn-primary') }}
                     {{ html()->form()->close() }}
 
                     {{ html()->form('GET', route('register'))->open() }}

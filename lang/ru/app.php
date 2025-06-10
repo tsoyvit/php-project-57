@@ -12,7 +12,7 @@ return [
     'tasks' => 'Задачи',
     'statuses' => 'Статусы',
     'tags' => 'Метки',
-    'login' => 'Вход',
+    'login' => 'Войти',
     'logout' => 'Выход',
     'register' => 'Зарегистрировать',
     'registration' => 'Регистрация',
