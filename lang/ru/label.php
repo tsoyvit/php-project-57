@@ -1,6 +1,5 @@
 <?php
 
-
 return [
     'labels' => 'Метки',
     'name' => 'Имя',

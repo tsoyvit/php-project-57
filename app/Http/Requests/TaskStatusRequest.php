@@ -19,7 +19,7 @@ class TaskStatusRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, ValidationRule|array|string>
+     * @return array<string, array<int, string>|string>
      */
     public function rules(): array
     {
@@ -29,11 +29,16 @@ class TaskStatusRequest extends FormRequest
                 'string',
                 'max:255',
                 Rule::unique('task_statuses', 'name')
-                    ->ignore($this->route('task_status'))
-            ]
+                    ->ignore($this->route('task_status')),
+            ],
         ];
     }
 
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array<string, array<int, string>|string>
+     */
     public function messages(): array
     {
         return [

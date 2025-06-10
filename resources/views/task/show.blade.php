@@ -1,6 +1,7 @@
 @extends('layouts.app')
 {{--@section('h1', __('task.Viewing an issue') . $task->name))--}}
 @section('content')
+
     <div class="card border-light mb-3">
         <div class="card-header">
             <h2 class="fs-4 d-flex align-items-center">
@@ -10,17 +11,14 @@
         </div>
 
         <div class="card-body">
-
             <p class="mb-2">
                 <span class="fw-bold">{{ __('task.name') }}:</span>
                 {{ $task->name }}
             </p>
-
             <p class="mb-2">
                 <span class="fw-bold">{{ __('task.status') }}:</span>
                 {{ $task->status->name }}
             </p>
-
             <p class="mb-2">
                 <span class="fw-bold">{{ __('task.description') }}:</span>
                 {{ $task->description }}
@@ -28,6 +26,7 @@
 
             <div class="mb-2">
                 <span class="fw-bold">{{ __('label.labels') }}:</span>
+
                 @foreach($task->labels as $label)
                 <span class="badge bg-primary d-inline-flex align-items-center fw-bold text-uppercase me-1">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
@@ -38,6 +37,7 @@
                     {{ $label->name }}
                 </span>
                 @endforeach
+
             </div>
 
         </div>

@@ -1,5 +1,17 @@
+setup:
+	composer install
+	@if [ ! -f .env ]; then cp .env.example .env; fi
+	php artisan key:generate
+	touch database/database.sqlite
+	php artisan migrate --seed
+	npm ci
+	npm run build
+
+start:
+	php artisan serve --host=0.0.0.0 --port=8000
+
 test:
-	vendor/bin/phpunit
+	./vendor/bin/phpunit
 
 stan:
 	./vendor/bin/phpstan analyse
@@ -22,15 +34,5 @@ migrate:
 seed:
 	php artisan db:seed
 
-refresh-all:
-	php artisan migrate:fresh --seed
-
-seed-task-statuses:
-	php artisan db:seed --class=TaskStatusSeeder
-
-serve:
-	php artisan serve
-
 d:
 	composer dump-autoload
-

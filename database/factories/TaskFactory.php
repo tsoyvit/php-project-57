@@ -48,5 +48,4 @@ class TaskFactory extends Factory
             'status_id' => $status->id,
         ]);
     }
-
 }

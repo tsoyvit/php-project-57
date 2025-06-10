@@ -12,12 +12,14 @@ class LabelController extends Controller
     public function index(): View
     {
         $labels = Label::all();
+
         return view('label.index', compact('labels'));
     }
 
     public function create(): View
     {
         $label = new Label();
+
         return view('label.create', compact('label'));
     }
 

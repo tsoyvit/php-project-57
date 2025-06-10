@@ -3,11 +3,8 @@
 namespace Tests\Feature\Task;
 
 use App\Models\Task;
-use App\Models\TaskStatus;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Testing\TestResponse;
 use Tests\TestCase;
 
 class DestroyTaskTest extends TestCase
@@ -15,10 +12,12 @@ class DestroyTaskTest extends TestCase
     use RefreshDatabase;
 
     private User $author;
+
     private User $nonAuthor;
+
     private Task $task;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -47,8 +46,10 @@ class DestroyTaskTest extends TestCase
         $response = $this->delete(route('tasks.destroy', $this->task));
 
         $response->assertRedirect(route('tasks.index'));
-        $response->assertSessionHas('success',
-            __('flash.The task was successfully deleted'));
+        $response->assertSessionHas(
+            'success',
+            __('flash.The task was successfully deleted')
+        );
 
         $this->assertDatabaseMissing('tasks', ['id' => $this->task->id]);
     }

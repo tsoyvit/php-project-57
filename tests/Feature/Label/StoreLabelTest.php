@@ -2,10 +2,8 @@
 
 namespace Tests\Feature\Label;
 
-use App\Models\Label;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Testing\TestResponse;
 use Tests\TestCase;
 
@@ -14,9 +12,10 @@ class StoreLabelTest extends TestCase
     use RefreshDatabase;
 
     private TestResponse $response;
+
     private array $labelData;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -29,10 +28,9 @@ class StoreLabelTest extends TestCase
         ];
 
         $this->response = $this->post(route('labels.store'), $this->labelData);
-
     }
 
-    public function  test_quest_cannot_access_store()
+    public function test_quest_cannot_access_store()
     {
         auth()->logout();
 
@@ -47,8 +45,10 @@ class StoreLabelTest extends TestCase
 
     public function test_return_flash_success_message()
     {
-        $this->response->assertSessionHas('success',
-            __('flash.The tag created successfully'));
+        $this->response->assertSessionHas(
+            'success',
+            __('flash.The tag created successfully')
+        );
     }
 
     public function test_database_has_new_label()

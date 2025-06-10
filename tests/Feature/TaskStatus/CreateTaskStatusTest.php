@@ -5,16 +5,16 @@ namespace Tests\Feature\TaskStatus;
 use App\Models\TaskStatus;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Testing\TestResponse;
 use Tests\TestCase;
 
 class CreateTaskStatusTest extends TestCase
 {
     use RefreshDatabase;
+
     private TestResponse $response;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -42,7 +42,9 @@ class CreateTaskStatusTest extends TestCase
 
     public function test_view_contains_required_data()
     {
-        $this->response->assertViewHas('taskStatus', fn ($taskStatus) =>
-            $taskStatus instanceof TaskStatus && !$taskStatus->exists);
+        $this->response->assertViewHas(
+            'taskStatus',
+            fn ($taskStatus) => $taskStatus instanceof TaskStatus && ! $taskStatus->exists
+        );
     }
 }

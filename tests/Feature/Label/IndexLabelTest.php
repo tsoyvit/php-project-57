@@ -4,7 +4,6 @@ namespace Tests\Feature\Label;
 
 use App\Models\Label;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Collection;
 use Illuminate\Testing\TestResponse;
 use Tests\TestCase;
@@ -12,10 +11,12 @@ use Tests\TestCase;
 class IndexLabelTest extends TestCase
 {
     use RefreshDatabase;
+
     private Collection $labels;
+
     private TestResponse $response;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 

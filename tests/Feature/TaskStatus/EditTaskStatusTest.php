@@ -5,7 +5,6 @@ namespace Tests\Feature\TaskStatus;
 use App\Models\TaskStatus;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Testing\TestResponse;
 use Tests\TestCase;
 
@@ -14,9 +13,10 @@ class EditTaskStatusTest extends TestCase
     use RefreshDatabase;
 
     private TaskStatus $taskStatus;
+
     private TestResponse $response;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -35,7 +35,6 @@ class EditTaskStatusTest extends TestCase
             ->assertForbidden();
     }
 
-
     public function test_authorized_user_can_edit_task_status()
     {
         $this->response->assertOk();
@@ -48,7 +47,9 @@ class EditTaskStatusTest extends TestCase
 
     public function test_edit_view_contains_required_data()
     {
-        $this->response->assertViewHas('taskStatus', fn ($status) =>
-            $status instanceof TaskStatus && $status->id === $this->taskStatus->id);
+        $this->response->assertViewHas(
+            'taskStatus',
+            fn ($status) => $status instanceof TaskStatus && $status->id === $this->taskStatus->id
+        );
     }
 }

@@ -5,16 +5,16 @@ namespace Tests\Feature\Task;
 use App\Models\Task;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Testing\TestResponse;
 use Tests\TestCase;
 
 class CreateTaskTest extends TestCase
 {
     use RefreshDatabase;
+
     private TestResponse $response;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -45,7 +45,6 @@ class CreateTaskTest extends TestCase
     {
         $this->response->assertViewHas(['taskStatuses', 'assignees']);
 
-        $this->response->assertViewHas('task', fn ($task) =>
-            $task instanceof Task && !$task->exists);
+        $this->response->assertViewHas('task', fn ($task) => $task instanceof Task && ! $task->exists);
     }
 }

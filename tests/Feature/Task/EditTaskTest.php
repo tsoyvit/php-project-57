@@ -5,7 +5,6 @@ namespace Tests\Feature\Task;
 use App\Models\Task;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Testing\TestResponse;
 use Tests\TestCase;
 
@@ -14,9 +13,10 @@ class EditTaskTest extends TestCase
     use RefreshDatabase;
 
     private Task $task;
+
     private TestResponse $response;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -48,9 +48,9 @@ class EditTaskTest extends TestCase
     public function test_edit_view_contains_required_data()
     {
         $this->response->assertViewHas(['assignees', 'taskStatuses']);
-
-        $this->response->assertViewHas('task', fn ($task) =>
-            $task instanceOf Task && $task->id === $this->task->id);
+        $this->response->assertViewHas(
+            'task',
+            fn ($task) => $task instanceof Task && $task->id === $this->task->id
+        );
     }
-
 }

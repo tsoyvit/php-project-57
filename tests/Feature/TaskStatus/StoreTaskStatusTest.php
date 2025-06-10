@@ -2,10 +2,8 @@
 
 namespace Tests\Feature\TaskStatus;
 
-use App\Models\TaskStatus;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Testing\TestResponse;
 use Tests\TestCase;
 
@@ -14,9 +12,10 @@ class StoreTaskStatusTest extends TestCase
     use RefreshDatabase;
 
     private TestResponse $response;
+
     private array $taskStatusData;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -27,8 +26,10 @@ class StoreTaskStatusTest extends TestCase
             'name' => 'taskStatus name',
         ];
 
-        $this->response = $this->post(route('task_statuses.store'),
-            $this->taskStatusData);
+        $this->response = $this->post(
+            route('task_statuses.store'),
+            $this->taskStatusData
+        );
     }
 
     public function test_quest_cannot_access_store()
@@ -46,8 +47,10 @@ class StoreTaskStatusTest extends TestCase
 
     public function test_return_flash_success_message()
     {
-        $this->response->assertSessionHas('success',
-            __('flash.The status was created successfully'));
+        $this->response->assertSessionHas(
+            'success',
+            __('flash.The status was created successfully')
+        );
     }
 
     public function test_database_has_new_task_status()

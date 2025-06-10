@@ -6,7 +6,6 @@ use App\Models\Task;
 use App\Models\TaskStatus;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Testing\TestResponse;
 use Tests\TestCase;
 
@@ -15,7 +14,9 @@ class UpdateTaskTest extends TestCase
     use RefreshDatabase;
 
     private Task $task;
+
     private array $updatedTaskData;
+
     private TestResponse $response;
 
     protected function setUp(): void
@@ -32,11 +33,13 @@ class UpdateTaskTest extends TestCase
 
         $this->updatedTaskData = [
             'name' => 'New Task name',
-            'status_id' => $newStatus->id
+            'status_id' => $newStatus->id,
         ];
 
-        $this->response = $this->patch(route('tasks.update', $this->task),
-            $this->updatedTaskData);
+        $this->response = $this->patch(
+            route('tasks.update', $this->task),
+            $this->updatedTaskData
+        );
     }
 
     public function test_quest_cannot_update_task()
@@ -54,8 +57,7 @@ class UpdateTaskTest extends TestCase
 
     public function test_return_success_message_when_updated_task()
     {
-        $this->response->assertSessionHas(['success' =>
-            __('flash.The task has been successfully changed')]);
+        $this->response->assertSessionHas(['success' => __('flash.The task has been successfully changed')]);
     }
 
     public function test_database_has_updated_task()

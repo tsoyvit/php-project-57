@@ -1,6 +1,5 @@
 <?php
 
-
 return [
     'labels' => 'Labels',
     'name' => 'Name',

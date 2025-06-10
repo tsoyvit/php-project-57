@@ -5,7 +5,6 @@ namespace Tests\Feature\Label;
 use App\Models\Label;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Testing\TestResponse;
 use Tests\TestCase;
 
@@ -15,7 +14,7 @@ class CreateLabelTest extends TestCase
 
     private TestResponse $response;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -43,7 +42,6 @@ class CreateLabelTest extends TestCase
 
     public function test_view_contains_required_data()
     {
-        $this->response->assertViewHas('label', fn ($label) =>
-            $label instanceof Label && !$label->exists);
+        $this->response->assertViewHas('label', fn ($label) => $label instanceof Label && ! $label->exists);
     }
 }

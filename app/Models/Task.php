@@ -11,8 +11,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Carbon;
 
 /**
- *
- *
  * @property int $id
  * @property string $name
  * @property string|null $description
@@ -24,6 +22,7 @@ use Illuminate\Support\Carbon;
  * @property-read User|null $assignee
  * @property-read User $creator
  * @property-read TaskStatus $status
+ *
  * @method static \Database\Factories\TaskFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Task newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Task newQuery()
@@ -36,8 +35,10 @@ use Illuminate\Support\Carbon;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Task whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Task whereStatusId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Task whereUpdatedAt($value)
+ *
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Label> $labels
  * @property-read int|null $labels_count
+ *
  * @mixin Eloquent
  */
 class Task extends Model

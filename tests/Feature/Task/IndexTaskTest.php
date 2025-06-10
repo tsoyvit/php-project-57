@@ -3,8 +3,9 @@
 namespace Tests\Feature\Task;
 
 use App\Models\Task;
+use App\Models\TaskStatus;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Collection;
 use Illuminate\Testing\TestResponse;
 use Tests\TestCase;
@@ -13,31 +14,94 @@ class IndexTaskTest extends TestCase
 {
     use RefreshDatabase;
 
-    private TestResponse $response;
-    private Collection $tasks;
+    private User $creator;
+    private User $assignee;
+    private TaskStatus $status;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 
-        $this->tasks = Task::factory()->count(3)->create();
-        $this->response = $this->get(route('tasks.index'));
+        $this->creator = User::factory()->create();
+        $this->assignee = User::factory()->create();
+        $this->status = TaskStatus::factory()->create();
+
+        Task::factory(3)
+            ->withAuthor($this->creator)
+            ->withStatus($this->status)
+            ->forUser($this->assignee)
+            ->create();
+
+        Task::factory(2)->create([
+            'status_id' => TaskStatus::factory()->create()->id,
+        ]);
     }
 
-    public function test_index_return_success_response()
+    public function it_can_filter_tasks_by_status(): void
     {
-        $this->response->assertOk();
+        $response = $this->get(route('tasks.index', [
+            'filter' => ['status_id' => $this->status->id]
+        ]));
+
+        $response->assertOk();
+        $response->assertViewHas('tasks', function ($tasks) {
+            return $tasks->every(function ($task) {
+                return $task->status_id === $this->status->id;
+            });
+        });
+    }
+
+    public function it_can_filter_tasks_by_creator(): void
+    {
+        $response = $this->get(route('tasks.index', [
+            'filter' => ['created_by_id' => $this->creator->id]
+        ]));
+
+        $response->assertOk();
+        $response->assertViewHas('tasks', function ($tasks) {
+            return $tasks->every(function ($task) {
+                return $task->created_by_id === $this->creator->id;
+            });
+        });
+    }
+
+    public function it_can_filter_tasks_by_assignee(): void
+    {
+        $response = $this->get(route('tasks.index', [
+            'filter' => ['assigned_to_id' => $this->assignee->id]
+        ]));
+
+        $response->assertOk();
+        $response->assertViewHas('tasks', function ($tasks) {
+            return $tasks->every(function ($task) {
+                return $task->assigned_to_id === $this->assignee->id;
+            });
+        });
+    }
+
+    public function it_can_combine_multiple_filters(): void
+    {
+        $response = $this->get(route('tasks.index', [
+            'filter' => [
+                'status_id' => $this->status->id,
+                'created_by_id' => $this->creator->id,
+                'assigned_to_id' => $this->assignee->id,
+            ]
+        ]));
+
+        $response->assertOk();
+        $response->assertViewHas('tasks', function ($tasks) {
+            return $tasks->every(function ($task) {
+                return $task->status_id === $this->status->id
+                    && $task->created_by_id === $this->creator->id
+                    && $task->assigned_to_id === $this->assignee->id;
+            });
+        });
     }
 
     public function test_index_render_correct_view()
     {
-        $this->response->assertViewIs('task.index');
-    }
-
-    public function test_index_displays_tasks()
-    {
-        foreach ($this->tasks as $task) {
-            $this->response->assertSee($task->id);
-        }
+        $response = $this->get(route('tasks.index'));
+        $response->assertViewIs('task.index');
     }
 }

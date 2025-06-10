@@ -19,8 +19,9 @@ class LabelRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, ValidationRule|array|string>
+     * @return array<string, array<int, string>|string>
      */
+
     public function rules(): array
     {
         return [
@@ -29,7 +30,7 @@ class LabelRequest extends FormRequest
                 'string',
                 'max:255',
                 Rule::unique('labels', 'name')
-                ->ignore($this->route('labels'))
+                    ->ignore($this->route('labels')),
             ],
             'description' => [
                 'nullable',
@@ -37,6 +38,12 @@ class LabelRequest extends FormRequest
             ],
         ];
     }
+
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array<string, array<int, string>|string>
+     */
 
     public function messages(): array
     {

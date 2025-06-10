@@ -2,6 +2,26 @@
 @section('h1', __('task.tasks'))
 @section('content')
 
+    {{ html()->form('GET')->route('tasks.index')->open() }}
+
+        <div class="d-flex flex-wrap mb-3 gap-2">
+            {{ html()->select('filter[status_id]', $statuses->toArray(), $inputFilter['status_id'] ?? null)
+                ->class('form-select w-auto')
+                ->placeholder(__('task.status')) }}
+
+            {{ html()->select('filter[created_by_id]', $users->toArray(), $inputFilter['created_by_id'] ?? null)
+                ->class('form-select w-auto')
+                ->placeholder(__('task.author')) }}
+
+            {{ html()->select('filter[assigned_to_id]', $users->toArray(), $inputFilter['assigned_to_id'] ?? null)
+                ->class('form-select w-auto')
+                ->placeholder(__('task.assignee')) }}
+
+            {{ html()->submit(__('task.apply'))->class('btn btn-primary') }}
+        </div>
+
+    {{ html()->form()->close() }}
+
     @auth
         <div class="mb-4">
             <a class="btn btn-primary" href="{{ route('tasks.create') }}">
@@ -26,6 +46,7 @@
                         @auth
                             <th>{{ __('task.actions') }}</th>
                         @endauth
+
                     </tr>
                     </thead>
 

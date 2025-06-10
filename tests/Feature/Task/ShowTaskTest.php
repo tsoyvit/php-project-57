@@ -5,7 +5,6 @@ namespace Tests\Feature\Task;
 use App\Models\Task;
 use App\Models\TaskStatus;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Testing\TestResponse;
 use Tests\TestCase;
 
@@ -14,10 +13,12 @@ class ShowTaskTest extends TestCase
     use RefreshDatabase;
 
     private TaskStatus $status;
+
     private Task $currentTask;
+
     private TestResponse $response;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -45,8 +46,9 @@ class ShowTaskTest extends TestCase
 
     public function test_passes_correct_task_to_view()
     {
-        $this->response->assertViewHas('task', fn ($task) =>
-            $task->id === $this->currentTask->id && $this->status->id === $task->status_id
+        $this->response->assertViewHas(
+            'task',
+            fn ($task) => $task->id === $this->currentTask->id && $this->status->id === $task->status_id
         );
     }
 }

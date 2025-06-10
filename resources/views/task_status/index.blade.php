@@ -2,8 +2,6 @@
 @section('h1', __('task_statuses.h1'))
 @section('content')
 
-
-
     @auth
     <div class="mb-4">
         <a class="btn btn-primary" href="{{ route('task_statuses.create') }}">
@@ -16,7 +14,6 @@
         <div class="card-body p-0">
             <div class="table-responsive rounded-1">
                 <table class="table table-hover mb-0">
-
                     <thead class="table-primary">
                     <tr>
                         <th>ID</th>
@@ -27,7 +24,6 @@
                         @endauth
                     </tr>
                     </thead>
-
                     <tbody>
 
                     @foreach($taskStatuses as $taskStatus)
@@ -39,7 +35,6 @@
                             @auth
                             <td>
                                 <div class="d-flex gap-2">
-
                                     <a href="{{ route('task_statuses.edit', $taskStatus) }}"
                                        class="btn btn-link text-primary p-0 text-decoration-none">
                                         {{ __('task.change') }}
@@ -55,7 +50,6 @@
                                             {{ __('task_statuses.delete') }}
                                         </button>
                                     </form>
-
                                 </div>
                             </td>
                             @endauth
@@ -64,7 +58,6 @@
                     @endforeach
 
                     </tbody>
-
                 </table>
             </div>
         </div>

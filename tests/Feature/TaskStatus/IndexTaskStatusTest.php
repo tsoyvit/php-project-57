@@ -4,7 +4,6 @@ namespace Tests\Feature\TaskStatus;
 
 use App\Models\TaskStatus;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Collection;
 use Illuminate\Testing\TestResponse;
 use Tests\TestCase;
@@ -14,9 +13,10 @@ class IndexTaskStatusTest extends TestCase
     use RefreshDatabase;
 
     private TestResponse $response;
+
     private Collection $taskStatuses;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 

@@ -1,6 +1,7 @@
 @extends('layouts.app')
 {{--@section('h1', __('task.Viewing an issue') . $task->name))--}}
 @section('content')
+
     <div class="card border-light mb-3">
         <div class="card-header">
             <h2 class="fs-4 d-flex align-items-center">
@@ -10,7 +11,6 @@
         </div>
 
         <div class="card-body">
-
             <p class="mb-2">
                 <span class="fw-bold">{{ __('task.name') }}:</span>
                 {{ $task->name }}
@@ -25,7 +25,6 @@
                 <span class="fw-bold">{{ __('task.description') }}:</span>
                 {{ $task->description }}
             </p>
-
         </div>
     </div>
 

@@ -6,9 +6,14 @@ parameters:
     paths:
         - app/
         - routes/
-    level: 5
+    level: 8
 
     checkModelProperties: true
+
+    ignoreErrors:
+        - '#Call to an undefined method Illuminate\\Database\\Eloquent\\Builder<.*>::allowedFilters\(\)#'
+        - identifier: missingType.generics
+
 
 #    ignoreErrors:
 #        - '#Call to an undefined method Illuminate\\.*#'

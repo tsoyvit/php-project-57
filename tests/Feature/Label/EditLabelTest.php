@@ -13,9 +13,10 @@ class EditLabelTest extends TestCase
     use RefreshDatabase;
 
     private Label $label;
+
     private TestResponse $response;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -46,7 +47,9 @@ class EditLabelTest extends TestCase
 
     public function test_edit_view_contains_required_data()
     {
-        $this->response->assertViewHas('label',
-            fn ($label) => $label instanceof Label && $label->id === $this->label->id);
+        $this->response->assertViewHas(
+            'label',
+            fn ($label) => $label instanceof Label && $label->id === $this->label->id
+        );
     }
 }

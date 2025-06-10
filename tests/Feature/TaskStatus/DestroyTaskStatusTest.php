@@ -6,7 +6,6 @@ use App\Models\Task;
 use App\Models\TaskStatus;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class DestroyTaskStatusTest extends TestCase
@@ -14,9 +13,10 @@ class DestroyTaskStatusTest extends TestCase
     use RefreshDatabase;
 
     private User $user;
+
     private TaskStatus $taskStatus;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -40,8 +40,10 @@ class DestroyTaskStatusTest extends TestCase
         $response = $this->delete(route('task_statuses.destroy', $status));
 
         $response->assertRedirect(route('task_statuses.index'));
-        $response->assertSessionHas('error',
-            __("flash.Couldn't delete status"));
+        $response->assertSessionHas(
+            'error',
+            __("flash.Couldn't delete status")
+        );
 
         $this->assertDatabaseHas('task_statuses', ['id' => $status->id]);
     }
@@ -53,8 +55,10 @@ class DestroyTaskStatusTest extends TestCase
         $response = $this->delete(route('task_statuses.destroy', $this->taskStatus));
 
         $response->assertRedirect(route('task_statuses.index'));
-        $response->assertSessionHas('success',
-            __('flash.Status successfully deleted'));
+        $response->assertSessionHas(
+            'success',
+            __('flash.Status successfully deleted')
+        );
 
         $this->assertDatabaseMissing('task_statuses', ['id' => $this->taskStatus->id]);
     }

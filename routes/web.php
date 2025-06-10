@@ -32,14 +32,12 @@ Route::get(
     fn () => abort(403, 'This action is unauthorized.')
 );
 
-
 Route::resource('tasks', TaskController::class)
     ->except('index', 'show')
     ->middleware('auth.forbid');
 
 Route::resource('tasks', TaskController::class)
     ->only('index', 'show');
-
 
 Route::resource('labels', LabelController::class)
     ->except('index', 'show')
@@ -49,7 +47,5 @@ Route::get('labels', [LabelController::class, 'index'])
     ->name('labels.index');
 
 Route::get('labels/{label}', fn () => abort(403, 'This action is unauthorized.'));
-
-
 
 require __DIR__ . '/auth.php';

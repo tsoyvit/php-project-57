@@ -55,7 +55,7 @@ jobs:
       - name: Run PHPUnit with coverage
         env:
           DB_CONNECTION: pgsql
-          DB_HOST: 127.0.01
+          DB_HOST: 127.0.0.1
           DB_PORT: 5432
           DB_DATABASE: test_db
           DB_USERNAME: postgres

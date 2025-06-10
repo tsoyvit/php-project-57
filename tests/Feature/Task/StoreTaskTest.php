@@ -2,11 +2,9 @@
 
 namespace Tests\Feature\Task;
 
-use App\Models\Task;
 use App\Models\TaskStatus;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Testing\TestResponse;
 use Tests\TestCase;
 
@@ -15,9 +13,10 @@ class StoreTaskTest extends TestCase
     use RefreshDatabase;
 
     private TestResponse $response;
+
     private array $taskData;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $user = User::factory()->create();
@@ -31,7 +30,6 @@ class StoreTaskTest extends TestCase
 
         $this->actingAs($user);
         $this->response = $this->post(route('tasks.store'), $this->taskData);
-
     }
 
     public function test_quest_cannot_access_store()
@@ -49,13 +47,14 @@ class StoreTaskTest extends TestCase
 
     public function test_return_flash_success_message()
     {
-        $this->response->assertSessionHas('success',
-            __('flash.The task was created successfully'));
+        $this->response->assertSessionHas(
+            'success',
+            __('flash.The task was created successfully')
+        );
     }
 
     public function test_database_has_new_task()
     {
         $this->assertDatabaseHas('tasks', $this->taskData);
     }
-
 }

@@ -13,6 +13,7 @@ class DestroyLabelTest extends TestCase
     use RefreshDatabase;
 
     private User $user;
+
     private Label $label;
 
     protected function setUp(): void
@@ -39,8 +40,10 @@ class DestroyLabelTest extends TestCase
         $response = $this->delete(route('labels.destroy', $this->label));
 
         $response->assertRedirect(route('labels.index'));
-        $response->assertSessionHas('error',
-            __("flash.Couldn't delete tag"));
+        $response->assertSessionHas(
+            'error',
+            __("flash.Couldn't delete tag")
+        );
 
         $this->assertDatabaseHas('labels', ['id' => $this->label->id]);
     }
@@ -52,8 +55,10 @@ class DestroyLabelTest extends TestCase
         $response = $this->delete(route('labels.destroy', $this->label));
 
         $response->assertRedirect(route('labels.index'));
-        $response->assertSessionHas('success',
-            __('flash.The tag was successfully deleted'));
+        $response->assertSessionHas(
+            'success',
+            __('flash.The tag was successfully deleted')
+        );
 
         $this->assertDatabaseMissing('labels', ['id' => $this->label->id]);
     }
