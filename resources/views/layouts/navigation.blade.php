@@ -12,30 +12,30 @@
 
             <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('tasks.index') }}">{{ __('app.tasks') }}</a>
+                    <a class="nav-link" href="{{ route('tasks.index') }}">Задачи</a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('task_statuses.index') }}">{{ __('app.statuses') }}</a>
+                    <a class="nav-link" href="{{ route('task_statuses.index') }}">Статусы</a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('labels.index') }}">{{ __('app.tags') }}</a>
+                    <a class="nav-link" href="{{ route('labels.index') }}">Метки</a>
                 </li>
             </ul>
 
             <div class="d-flex gap-2">
                 @auth
                     {{ html()->form('POST', route('logout'))->open() }}
-                    {{ html()->submit(__('app.logout'))->class('btn btn-primary') }}
+                    {{ html()->submit('Выйти')->class('btn btn-primary') }}
                     {{ html()->form()->close() }}
                 @else
                     {{ html()->form('GET', route('login'))->open() }}
-                    {{ html()->submit(__('app.login'))->class('btn btn-primary') }}
+                    {{ html()->submit('Войти')->class('btn btn-primary') }}
                     {{ html()->form()->close() }}
 
                     {{ html()->form('GET', route('register'))->open() }}
-                    {{ html()->submit(__('app.register'))->class('btn btn-primary') }}
+                    {{ html()->submit('Зарегистрировать')->class('btn btn-primary') }}
                     {{ html()->form()->close() }}
                 @endauth
             </div>
