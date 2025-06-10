@@ -27,7 +27,7 @@
             <div class="d-flex gap-2">
                 @auth
                     {{ html()->form('POST', route('logout'))->open() }}
-                    {{ html()->submit('Выйти')->class('btn btn-primary') }}
+                    {{ html()->submit(__('app.logout'))->class('btn btn-primary') }}
                     {{ html()->form()->close() }}
                 @else
                     {{ html()->form('GET', route('login'))->open() }}
