@@ -5,6 +5,7 @@
     <form method="POST" action="{{ route('login') }}">
         @csrf
 
+        <h2 class="text-center text-4xl">{{ __('app.task_manager') }}</h2>
         <!-- Email Address -->
         <div>
             <x-input-label for="email" :value="__('Email')" />

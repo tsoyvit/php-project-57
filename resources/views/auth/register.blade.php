@@ -2,6 +2,8 @@
     <form method="POST" action="{{ route('register') }}">
         @csrf
 
+        <h2 class="text-center text-4xl">{{ __('app.task_manager') }}</h2>
+
         <!-- Name -->
         <div>
             <x-input-label for="name" :value="__('app.name')" />
@@ -47,6 +49,8 @@
             <x-primary-button class="ms-4">
                 {{ __('app.register') }}
             </x-primary-button>
+
         </div>
     </form>
 </x-guest-layout>
+
