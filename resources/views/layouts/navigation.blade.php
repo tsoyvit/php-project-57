@@ -24,14 +24,19 @@
                 </li>
             </ul>
 
-            <div class="d-flex">
+            <div class="d-flex gap-2">
                 @auth
                     {{ html()->form('POST', route('logout'))->open() }}
                     {{ html()->submit(__('app.logout'))->class('btn btn-primary') }}
                     {{ html()->form()->close() }}
                 @else
-                    <a href="{{ route('login') }}" class="btn btn-primary me-2">{{ __('app.login') }}</a>
-                    <a href="{{ route('register') }}" class="btn btn-primary">{{ __('app.register') }}</a>
+                    {{ html()->form('GET', route('login'))->open() }}
+                    {{ html()->submit(__('app.login'))->class('btn btn-primary') }}
+                    {{ html()->form()->close() }}
+
+                    {{ html()->form('GET', route('register'))->open() }}
+                    {{ html()->submit(__('app.register'))->class('btn btn-primary') }}
+                    {{ html()->form()->close() }}
                 @endauth
             </div>
 
