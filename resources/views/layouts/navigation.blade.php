@@ -35,7 +35,7 @@
                     {{ html()->form()->close() }}
 
                     {{ html()->form('GET', route('register'))->open() }}
-                    {{ html()->submit(__('app.register'))->class('btn btn-primary') }}
+                    {{ html()->submit(__('app.registration'))->class('btn btn-primary') }}
                     {{ html()->form()->close() }}
                 @endauth
             </div>

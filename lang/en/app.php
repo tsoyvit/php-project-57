@@ -15,6 +15,7 @@ return [
     'login' => 'Login',
     'logout' => 'Logout',
     'register' => 'Register',
+    'registration' => 'Registration',
     'confirm_delete' => 'Are you sure?',
     'delete' => 'Delete',
     'edit' => 'Edit',
