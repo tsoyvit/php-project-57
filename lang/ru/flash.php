@@ -10,6 +10,7 @@ return [
     'The task was created successfully' => 'Задача успешно создана',
     'The task was successfully deleted' => 'Задача успешно удалена',
     'The task has been successfully changed' => 'Задача успешно изменена',
+    'A task with this name already exists' => 'Задача с таким именем уже существует',
 
     'This field is required' => 'Это обязательное поле',
 

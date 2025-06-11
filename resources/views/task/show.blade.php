@@ -2,8 +2,9 @@
 {{--@section('h1', __('task.Viewing an issue') . $task->name))--}}
 @section('content')
 
-    <h2 class="mb-5 text-2xl font-bold sm:text-3xl md:text-3xl">
-        {{ __('task.Viewing an issue') }} {{ $task->name }}
+    <h2 class="mb-5" style="line-height: 48px; font-size: 2rem;">
+
+    {{ __('task.Viewing an issue') }} {{ $task->name }}
         <a href="{{ route('tasks.edit', $task) }}">⚙</a>
     </h2>
     <p>
@@ -18,12 +19,14 @@
         <span class="font-black">{{ __('task.description') }}:</span>
         {{ $task->description }}
     </p>
+
+    @if($task->labels->count())
+
     <p>
         <span class="font-black">{{ __('label.labels') }}:</span>
     </p>
 
     <div>
-
         @foreach($task->labels as $label)
             <div
                 class="text-xs inline-flex items-center font-bold leading-sm uppercase px-3 py-1 bg-blue-200 text-blue-500 rounded-full">
@@ -35,7 +38,8 @@
                 {{ $label->name }}
             </div>
         @endforeach
-
     </div>
+    @endif
 
 @endsection
+

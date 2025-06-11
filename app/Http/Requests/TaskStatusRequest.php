@@ -43,6 +43,7 @@ class TaskStatusRequest extends FormRequest
     {
         return [
             'name.required' => __('flash.This field is required'),
+            'name.unique' => __('flash.A status with this name already exists'),
         ];
     }
 }

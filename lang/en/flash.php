@@ -10,6 +10,7 @@ return [
     'The task was created successfully' => 'The task was created successfully',
     'The task was successfully deleted' => 'The issue was successfully deleted',
     'The task has been successfully changed' => 'The issue has been successfully changed',
+    'A task with this name already exists' => 'A task with this name already exists',
 
     'This field is required' => 'This field is required',
 
