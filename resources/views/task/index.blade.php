@@ -74,13 +74,7 @@
 
                     @auth
                         @can('delete', $task)
-                            <form action="{{ route('tasks.destroy', $task) }}" method="POST" class="inline-block ml-0">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="text-red-600 hover:text-red-900" onclick="return confirm('{{ __('task.are you sure?') }}')">
-                                    {{ __('task.delete') }}
-                                </button>
-                            </form>
+                            <a class="text-red-600 hover:text-ted-900" href="{{ route('tasks.destroy', $task) }}" data-confirm="{{ __('task.are you sure?') }}" data-method="delete" rel="nofollow">{{ __('task.delete') }}</a>
                         @endcan
 
                         <a href="{{ route('tasks.edit', $task) }}"
