@@ -5,7 +5,7 @@ return [
     'name' => 'Имя',
     'description' => 'Описание',
     'created at' => 'Дата создания',
-    'action' => 'Действия',
+    'actions' => 'Действия',
     'delete' => 'Удалить',
     'change' => 'Изменить',
 

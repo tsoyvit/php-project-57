@@ -1,8 +1,21 @@
 <x-guest-layout>
+    <h2 class="text-center text-4xl">{{ __('app.task_manager') }}</h2>
+    @if ($errors->any())
+    <div class="mb-4">
+        <div class="font-medium text-red-600">
+            Упс! Что-то пошло не так:
+        </div>
+
+        <ul class="mt-3 list-disc list-inside text-sm text-red-600">
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+    @endif
+
     <form method="POST" action="{{ route('register') }}">
         @csrf
-
-        <h2 class="text-center text-4xl">{{ __('app.task_manager') }}</h2>
 
         <!-- Name -->
         <div>
@@ -15,7 +28,6 @@
         <div class="mt-4">
             <x-input-label for="email" :value="__('Email')" />
             <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
         </div>
 
         <!-- Password -->
@@ -27,7 +39,7 @@
                             name="password"
                             required autocomplete="new-password" />
 
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
+
         </div>
 
         <!-- Confirm Password -->
@@ -38,7 +50,7 @@
                             type="password"
                             name="password_confirmation" required autocomplete="new-password" />
 
-            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
+
         </div>
 
         <div class="flex items-center justify-end mt-4">

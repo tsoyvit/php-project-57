@@ -5,7 +5,7 @@ return [
     'name' => 'Name',
     'description' => 'Description',
     'created at' => 'Created at',
-    'action' => 'Actions',
+    'actions' => 'Actions',
     'delete' => 'Delete',
     'change' => 'Change',
 

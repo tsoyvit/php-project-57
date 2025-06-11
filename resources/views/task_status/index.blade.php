@@ -2,6 +2,8 @@
 @section('h1', __('task_statuses.h1'))
 @section('content')
 
+    @include('partials.flash')
+
     @auth
         <div>
             <a href="{{ route('task_statuses.create') }}"

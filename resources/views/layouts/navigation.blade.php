@@ -8,10 +8,9 @@
             <div class="flex items-center lg:order-2">
 
                 @auth
-                <a href="{{ route('logout') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                    {{ __('app.logout') }}
-                </a>
-
+                    {{ html()->form('POST', route('logout'))->open() }}
+                    {{ html()->submit(__('app.logout'))->class('bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded') }}
+                    {{ html()->form()->close() }}
                 @else
                 <a href="{{ route('login') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                     {{ __('app.login') }}

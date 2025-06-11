@@ -2,6 +2,8 @@
 @section('h1', __('label.labels'))
 @section('content')
 
+    @include('partials.flash')
+
     @auth
         <div>
             <a href="{{ route('labels.create') }}"

@@ -2,6 +2,8 @@
 @section('h1', __('task.tasks'))
 @section('content')
 
+    @include('partials.flash')
+
     <div class="w-full flex items-center justify-between mt-6">
         <div>
             {{ html()->form('GET')->route('tasks.index')->open() }}
