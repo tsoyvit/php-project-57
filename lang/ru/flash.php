@@ -11,7 +11,7 @@ return [
     'The task was successfully deleted' => 'Задача успешно удалена',
     'The task has been successfully changed' => 'Задача успешно изменена',
 
-    'This field is required' => 'Это поле обязательно',
+    'This field is required' => 'Это обязательное поле',
 
     'The tag created successfully' => 'Метка успешно создана',
     'The tag was successfully deleted' => 'Метка успешно удалена',

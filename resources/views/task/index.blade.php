@@ -4,7 +4,7 @@
 
     @include('partials.flash')
 
-    <div class="w-full flex items-center justify-between mt-6">
+    <div class="w-full flex items-center justify-between">
         <div>
             {{ html()->form('GET')->route('tasks.index')->open() }}
 
