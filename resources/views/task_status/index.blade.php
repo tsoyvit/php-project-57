@@ -3,64 +3,56 @@
 @section('content')
 
     @auth
-    <div class="mb-4">
-        <a class="btn btn-primary" href="{{ route('task_statuses.create') }}">
-            {{ __('task_statuses.create') }}
-        </a>
-    </div>
+        <div>
+            <a href="{{ route('task_statuses.create') }}"
+               class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                {{ __('task_statuses.create') }}</a>
+        </div>
     @endauth
 
-    <div class="card shadow-sm overflow-hidden">
-        <div class="card-body p-0">
-            <div class="table-responsive rounded-1">
-                <table class="table table-hover mb-0">
-                    <thead class="table-primary">
-                    <tr>
-                        <th>ID</th>
-                        <th>{{ __('task_statuses.name') }}</th>
-                        <th>{{ __('task_statuses.created_at') }}</th>
-                        @auth
-                        <th>{{ __('task_statuses.actions') }}</th>
-                        @endauth
-                    </tr>
-                    </thead>
-                    <tbody>
+    <table class="mt-4">
+        <thead class="border-b-2 border-solid border-black text-left">
+        <tr>
+            <th>ID</th>
+            <th>{{ __('task_statuses.name') }}</th>
+            <th>{{ __('task_statuses.created_at') }}</th>
+            @auth
+                <th>{{ __('task_statuses.actions') }}</th>
+            @endauth
+        </tr>
+        </thead>
 
-                    @foreach($taskStatuses as $taskStatus)
-                        <tr>
-                            <td>{{ $taskStatus->id }}</td>
-                            <td>{{ $taskStatus->name }}</td>
-                            <td>{{ $taskStatus->created_at->format('d.m.Y') }}</td>
+        <tbody>
 
-                            @auth
-                            <td>
-                                <div class="d-flex gap-2">
-                                    <a href="{{ route('task_statuses.edit', $taskStatus) }}"
-                                       class="btn btn-link text-primary p-0 text-decoration-none">
-                                        {{ __('task.change') }}
-                                    </a>
+        @foreach($taskStatuses as $taskStatus)
 
-                                    <form action="{{ route('task_statuses.destroy', $taskStatus) }}" method="POST"
-                                          class="d-inline">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit"
-                                                class="btn btn-link text-danger p-0 text-decoration-none"
-                                                onclick="return confirm('{{ __('task_statuses.confirm_delete') }}')">
-                                            {{ __('task_statuses.delete') }}
-                                        </button>
-                                    </form>
-                                </div>
-                            </td>
-                            @endauth
+            <tr class="border-b border-dashed text-left">
+                <td>{{ $taskStatus->id }}</td>
+                <td>{{ $taskStatus->name }}</td>
+                <td>{{ $taskStatus->created_at->format('d.m.Y') }}</td>
+                <td>
+                    @auth
+                        <form action="{{ route('task_statuses.destroy', $taskStatus) }}" method="POST"
+                              class="inline-block ml-0">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="text-red-600 hover:text-red-900"
+                                    onclick="return confirm('{{ __('task_statuses.confirm_delete') }}')">
+                                {{ __('task_statuses.delete') }}
+                            </button>
+                        </form>
 
-                        </tr>
-                    @endforeach
+                        <a class="text-blue-600 hover:text-blue-900"
+                           href="{{ route('task_statuses.edit', $taskStatus) }}">
+                            {{ __('task.change') }}
+                        </a>
+                    @endauth
 
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
+                </td>
+            </tr>
+        </tbody>
+        @endforeach
+
+    </table>
 
 @endsection

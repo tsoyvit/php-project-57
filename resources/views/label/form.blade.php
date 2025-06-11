@@ -1,14 +1,20 @@
-<div class="mb-3">
-    {{ html()->label(__('label.name'), 'name')->class('form-label') }}
-    {{ html()->text('name')->class('form-control')->required() }}
+<div>
+    {{ html()->label(__('label.name'), 'name') }}
+</div>
+
+<div class="mb-2">
+    {{ html()->text('name')->class('rounded border-gray-300 w-1/3')->required() }}
     @error('name')
     <div class="invalid-feedback d-block">{{ $message }}</div>
     @enderror
 </div>
 
-<div class="mb-3">
-    {{ html()->label(__('label.description'), 'description')->class('form-label') }}
-    {{ html()->textarea('description')->class('form-control') }}
+<div>
+    {{ html()->label(__('label.description'), 'description') }}
+</div>
+
+<div class="mb-2">
+    {{ html()->textarea('description')->class('rounded border-gray-300 w-1/3') }}
     @error('description')
     <div class="invalid-feedback d-block">{{ $message }}</div>
     @enderror

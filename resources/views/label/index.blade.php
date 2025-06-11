@@ -3,69 +3,58 @@
 @section('content')
 
     @auth
-        <div class="mb-4">
-            <a class="btn btn-primary" href="{{ route('labels.create') }}">
-                {{ __('label.create label') }}
-            </a>
+        <div>
+            <a href="{{ route('labels.create') }}"
+               class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                {{ __('label.create label') }}</a>
         </div>
     @endauth
 
-    <div class="card shadow-sm overflow-hidden">
-        <div class="card-body p-0">
-            <div class="table-responsive rounded-1">
-                <table class="table table-hover mb-0">
-                    <thead class="table-primary">
-                    <tr>
-                        <th>ID</th>
-                        <th>{{ __('label.name') }}</th>
-                        <th>{{ __('label.description') }}</th>
-                        <th>{{ __('label.created at') }}</th>
 
-                        @auth
-                            <th>{{ __('label.actions') }}</th>
-                        @endauth
-                    </tr>
-                    </thead>
+    <table class="mt-4">
 
-                    <tbody>
+        <thead class="border-b-2 border-solid border-black text-left">
+        <tr>
+            <th>ID</th>
+            <th>{{ __('label.name') }}</th>
+            <th>{{ __('label.description') }}</th>
+            <th>{{ __('label.created at') }}</th>
 
-                    @foreach($labels as $label)
-                        <tr>
-                            <td>{{ $label->id }}</td>
-                            <td>{{ $label->name }}</td>
-                            <td>{{ $label->description }}</td>
-                            <td>{{ $label->created_at->format('d.m.Y') }}</td>
+            @auth
+                <th>{{ __('label.actions') }}</th>
+            @endauth
+        </tr>
+        </thead>
 
-                            @auth
-                                <td>
-                                    <div class="d-flex gap-2">
-                                        <a href="{{ route('labels.edit', $label) }}"
-                                           class="btn btn-link text-primary p-0 text-decoration-none">
-                                            {{ __('label.change') }}
-                                        </a>
+        <tbody>
 
-                                        <form action="{{ route('labels.destroy', $label) }}" method="POST"
-                                              class="d-inline">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit"
-                                                    class="btn btn-link text-danger p-0 text-decoration-none"
-                                                    onclick="return confirm('{{ __('label.are you sure?') }}')">
-                                                {{ __('label.delete') }}
-                                            </button>
-                                        </form>
+        @foreach($labels as $label)
+            <tr class="border-b border-dashed text-left">
+                <td>{{ $label->id }}</td>
+                <td>{{ $label->name }}</td>
+                <td>{{ $label->description }}</td>
+                <td>{{ $label->created_at->format('d.m.Y') }}</td>
+                <td>
+                    @auth
+                        <form action="{{ route('labels.destroy', $label) }}" method="POST" class="inline-block ml-0">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="text-red-600 hover:text-red-900"
+                                    onclick="return confirm('{{ __('label.are you sure?') }}')">
+                                {{ __('label.delete') }}
+                            </button>
+                        </form>
 
-                                    </div>
-                                </td>
-                            @endauth
+                        <a class="inline-block text-blue-500 hover:text-blue-900 ml-0"
+                           href="{{ route('labels.edit', $label) }}">
+                            {{ __('label.change') }}
+                        </a>
+                    @endauth
+                </td>
+            </tr>
+        @endforeach
 
-                        </tr>
-                    @endforeach
-
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
+        </tbody>
+    </table>
 
 @endsection

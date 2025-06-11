@@ -2,25 +2,21 @@
 @section('h1', __('label.create label'))
 @section('content')
 
-    <div class="container">
-        <div class="row">
-            <div class="col-md-4 ml-0 p-0">
+    {{ html()->modelForm($label, 'POST', route('labels.store'))
+        ->class('w-50')
+        ->novalidate()
+        ->open() }}
 
-                {{ html()->modelForm($label, 'POST', route('labels.store'))
-                    ->class('needs-validation')
-                    ->novalidate()
-                    ->open() }}
+    <div class="flex flex-col">
 
-                @include('label.form')
+        @include('label.form')
 
-                <div class="mb-3">
-                    {{ html()->submit(__('label.create'))->class('btn btn-primary') }}
-                </div>
-
-                {{ html()->closeModelForm() }}
-
-            </div>
+        <div class="mb-2">
+            {{ html()->submit(__('label.create'))->class('bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded') }}
         </div>
+
+        {{ html()->closeModelForm() }}
+
     </div>
 
 @endsection

@@ -13,6 +13,7 @@ return [
     'statuses' => 'Statuses',
     'tags' => 'Tags',
     'login' => 'Login',
+    'login1' => 'Login',
     'logout' => 'Logout',
     'register' => 'Register',
     'registration' => 'Registration',
@@ -20,5 +21,8 @@ return [
     'delete' => 'Delete',
     'edit' => 'Edit',
     'update' => 'Update',
+    'greeting' => 'Hello from Hexlet!',
+    'homeBody' => 'This is a simple Laravel task manager',
+    'push' => 'Push me'
 
 ];

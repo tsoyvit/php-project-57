@@ -2,101 +2,95 @@
 @section('h1', __('task.tasks'))
 @section('content')
 
-    {{ html()->form('GET')->route('tasks.index')->open() }}
+    <div class="w-full flex items-center justify-between mt-6">
+        <div>
+            {{ html()->form('GET')->route('tasks.index')->open() }}
 
-        <div class="d-flex flex-wrap mb-3 gap-2">
-            {{ html()->select('filter[status_id]', $statuses->toArray(), $inputFilter['status_id'] ?? null)
-                ->class('form-select w-auto')
-                ->placeholder(__('task.status')) }}
+            <div class="flex">
+                {{ html()->select('filter[status_id]', $statuses->toArray(), $inputFilter['status_id'] ?? null)
+                    ->class('rounded border-gray-300')
+                    ->placeholder(__('task.status')) }}
 
-            {{ html()->select('filter[created_by_id]', $users->toArray(), $inputFilter['created_by_id'] ?? null)
-                ->class('form-select w-auto')
-                ->placeholder(__('task.author')) }}
+                {{ html()->select('filter[created_by_id]', $users->toArray(), $inputFilter['created_by_id'] ?? null)
+                    ->class('rounded border-gray-300')
+                    ->placeholder(__('task.author')) }}
 
-            {{ html()->select('filter[assigned_to_id]', $users->toArray(), $inputFilter['assigned_to_id'] ?? null)
-                ->class('form-select w-auto')
-                ->placeholder(__('task.assignee')) }}
+                {{ html()->select('filter[assigned_to_id]', $users->toArray(), $inputFilter['assigned_to_id'] ?? null)
+                    ->class('rounded border-gray-300')
+                    ->placeholder(__('task.assignee')) }}
 
-            {{ html()->submit(__('task.apply'))->class('btn btn-primary') }}
-        </div>
-
-    {{ html()->form()->close() }}
-
-    @auth
-        <div class="mb-4">
-            <a class="btn btn-primary" href="{{ route('tasks.create') }}">
-                {{ __('task.create task') }}
-            </a>
-        </div>
-    @endauth
-
-    <div class="card shadow-sm overflow-hidden">
-        <div class="card-body p-0">
-            <div class="table-responsive rounded-1">
-                <table class="table table-hover mb-0">
-                    <thead class="table-primary">
-                    <tr>
-                        <th>ID</th>
-                        <th>{{ __('task.status') }}</th>
-                        <th>{{ __('task.name') }}</th>
-                        <th>{{ __('task.author') }}</th>
-                        <th>{{ __('task.assignee') }}</th>
-                        <th>{{ __('task.created at') }}</th>
-
-                        @auth
-                            <th>{{ __('task.actions') }}</th>
-                        @endauth
-
-                    </tr>
-                    </thead>
-
-                    <tbody>
-
-                    @foreach($tasks as $task)
-                        <tr>
-                            <td>{{ $task->id }}</td>
-                            <td>{{ $task->status->name }}</td>
-                            <td>
-                                <a href="{{ route('tasks.show', $task) }}"
-                                   class="text-decoration-none">{{ $task->name }}</a>
-                            </td>
-                            <td>{{ $task->creator->name }}</td>
-                            <td>{{ $task->assignee->name ?? ''}}</td>
-                            <td>{{ $task->created_at->format('d.m.Y') }}</td>
-
-                            @auth
-                                <td>
-                                    <div class="d-flex gap-2">
-                                        <a href="{{ route('tasks.edit', $task) }}"
-                                           class="btn btn-link text-primary p-0 text-decoration-none">
-                                            {{ __('task.change') }}
-                                        </a>
-
-                                        @can('delete', $task)
-                                            <form action="{{ route('tasks.destroy', $task) }}" method="POST"
-                                                  class="d-inline">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit"
-                                                        class="btn btn-link text-danger p-0 text-decoration-none"
-                                                        onclick="return confirm('{{ __('task.are you sure?') }}')">
-                                                    {{ __('task.delete') }}
-                                                </button>
-                                            </form>
-                                        @endcan
-
-                                    </div>
-                                </td>
-                            @endauth
-
-                        </tr>
-                    @endforeach
-
-                    </tbody>
-                </table>
+                {{ html()->submit(__('task.apply'))->class('bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-2') }}
             </div>
+
+            {{ html()->form()->close() }}
         </div>
+
+        @auth
+            <div class="ml-0">
+                <a href="{{ route('tasks.create') }}"
+                   class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-2">
+                    {{ __('task.create task') }}
+                </a>
+            </div>
+        @endauth
+
     </div>
+
+    <table class="mt-4">
+        <thead class="border-b-2 border-solid border-black text-left">
+        <tr>
+            <th>ID</th>
+            <th>{{ __('task.status') }}</th>
+            <th>{{ __('task.name') }}</th>
+            <th>{{ __('task.author') }}</th>
+            <th>{{ __('task.assignee') }}</th>
+            <th>{{ __('task.created at') }}</th>
+
+            @auth
+                <th>{{ __('task.actions') }}</th>
+            @endauth
+
+        </tr>
+        </thead>
+
+        <tbody>
+
+        @foreach($tasks as $task)
+
+            <tr class="border-b border-dashed text-left">
+                <td>{{ $task->id }}</td>
+                <td>{{ $task->status->name }}</td>
+                <td>
+                    <a class="text-blue-500 hover:text-blue-900" href="{{ route('tasks.show', $task) }}">
+                        {{ $task->name }}
+                    </a>
+                </td>
+                <td>{{ $task->creator->name }}</td>
+                <td>{{ $task->assignee->name ?? ''}}</td>
+                <td>{{ $task->created_at->format('d.m.Y') }}</td>
+                <td>
+
+                    @auth
+                        @can('delete', $task)
+                            <form action="{{ route('tasks.destroy', $task) }}" method="POST" class="inline-block ml-0">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="text-red-600 hover:text-red-900" onclick="return confirm('{{ __('task.are you sure?') }}')">
+                                    {{ __('task.delete') }}
+                                </button>
+                            </form>
+                        @endcan
+
+                        <a href="{{ route('tasks.edit', $task) }}"
+                           class="inline-block text-blue-500 hover:text-blue-900 ml-0">
+                            {{ __('task.change') }}
+                        </a>
+                    @endauth
+                </td>
+            </tr>
+        @endforeach
+        </tbody>
+    </table>
 
     {{ $tasks->links() }}
 

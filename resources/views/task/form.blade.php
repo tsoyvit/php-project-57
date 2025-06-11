@@ -1,37 +1,50 @@
-<div class="mb-3">
-    {{ html()->label(__('task.name'), 'name')->class('form-label') }}
-    {{ html()->text('name')->class('form-control')->required() }}
+<div>
+    {{ html()->label(__('task.name'), 'name') }}
+</div>
+<div class="mb-2">
+    {{ html()->text('name')->class('rounded border-gray-300 w-1/3')->required() }}
     @error('name')
-    <div class="invalid-feedback d-block">{{ $message }}</div>
+    <div class="text-rose-600">{{ $message }}</div>
     @enderror
 </div>
 
-<div class="mb-3">
-    {{ html()->label(__('task.description'), 'description')->class('form-label') }}
-    {{ html()->textarea('description')->class('form-control') }}
+
+<div>
+    {{ html()->label(__('task.description'), 'description') }}
+</div>
+<div class="mb-2">
+    {{ html()->textarea('description')->class('rounded border-gray-300 w-1/3 h-32') }}
     @error('description')
-    <div class="invalid-feedback d-block">{{ $message }}</div>
+    <div class="text-rose-600">{{ $message }}</div>
     @enderror
 </div>
 
-<div class="mb-3">
-    {{ html()->label(__('task.status'), 'status_id')->class('form-label') }}
+
+<div>
+    {{ html()->label(__('task.status'), 'status_id') }}
+</div>
+<div class="mb-2">
     {{ html()->select('status_id', ['' => ''] + $taskStatuses->toArray())
-        ->class('form-control') }}
+        ->class('rounded border-gray-300 w-1/3') }}
 </div>
 
-<div class="mb-3">
-    {{ html()->label(__('task.assignee'), 'assigned_to_id')->class('form-label') }}
+
+<div>
+    {{ html()->label(__('task.assignee'), 'assigned_to_id') }}
+</div>
+<div class="mb-2">
     {{ html()->select('assigned_to_id', ['' => ''] + $assignees->toArray())
-        ->class('form-control') }}
+        ->class('rounded border-gray-300 w-1/3') }}
 </div>
 
-<div class="mb-3">
-    {{ html()->label(__('label.labels'))->for('labels')->class('form-label') }}
 
+<div>
+    {{ html()->label(__('label.labels'))->for('labels') }}
+</div>
+<div class="mb-2">
     {{ html()->select('labels[]', $labels->toArray(), $task->labels->pluck('id')->toArray())
         ->multiple()
-        ->class('form-select')
+        ->class('rounded border-gray-300 w-1/3 h-32')
         ->attribute('aria-label', 'Multiple select example')
         ->id('labels')
     }}

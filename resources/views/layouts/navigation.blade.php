@@ -1,46 +1,47 @@
+<header class="fixed w-full">
+    <nav class="bg-white border-gray-200 py-2.5 dark:bg-gray-900 shadow-md">
+        <div class="flex flex-wrap items-center justify-between max-w-screen-xl px-4 mx-auto">
+            <a href="{{ route('home') }}" class="flex items-center">
+                <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">{{ __('app.task_manager') }}</span>
+            </a>
 
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
-    <div class="container-fluid">
+            <div class="flex items-center lg:order-2">
 
-        <a class="navbar-brand" href="{{ route('home') }}">{{ __('app.task_manager') }}</a>
-
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-
-            <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('tasks.index') }}">Задачи</a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('task_statuses.index') }}">Статусы</a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('labels.index') }}">Метки</a>
-                </li>
-            </ul>
-
-            <div class="d-flex gap-2">
                 @auth
-                    {{ html()->form('POST', route('logout'))->open() }}
-                    {{ html()->submit(__('app.logout'))->class('btn btn-primary') }}
-                    {{ html()->form()->close() }}
-                @else
-                    {{ html()->form('GET', route('login'))->open() }}
-                    {{ html()->submit('Вход')->class('btn btn-primary') }}
-                    {{ html()->form()->close() }}
+                <a href="{{ route('logout') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                    {{ __('app.logout') }}
+                </a>
 
-                    {{ html()->form('GET', route('register'))->open() }}
-                    {{ html()->submit(__('app.registration'))->class('btn btn-primary') }}
-                    {{ html()->form()->close() }}
+                @else
+                <a href="{{ route('login') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                    {{ __('app.login') }}
+                </a>
+                <a href="{{ route('register') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-2">
+                    {{ __('app.registration') }}
+                </a>
                 @endauth
+
             </div>
 
+            <div class="items-center justify-between hidden w-full lg:flex lg:w-auto lg:order-1">
+                <ul class="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
+                    <li>
+                        <a href="{{ route('tasks.index') }}" class="block py-2 pl-3 pr-4 text-gray-700 hover:text-blue-700 lg:p-0">
+                            {{ __('app.tasks') }}
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('task_statuses.index') }}" class="block py-2 pl-3 pr-4 text-gray-700 hover:text-blue-700 lg:p-0">
+                            {{ __('app.statuses') }}
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('labels.index') }}" class="block py-2 pl-3 pr-4 text-gray-700 hover:text-blue-700 lg:p-0">
+                            {{ __('app.tags') }}
+                        </a>
+                    </li>
+                </ul>
+            </div>
         </div>
-    </div>
-</nav>
-
+    </nav>
+</header>

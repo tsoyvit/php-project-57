@@ -2,23 +2,20 @@
 @section('h1', __('task_statuses.change_status'))
 @section('content')
 
-    <div class="container">
-        <div class="row">
-            <div class="col-md-4 ml-0 p-0">
-                {{ html()->modelForm($taskStatus, 'PATCH', route('task_statuses.update', $taskStatus))
-                    ->class('needs-validation')
-                    ->novalidate()
-                    ->open() }}
+    {{ html()->modelForm($taskStatus, 'PATCH', route('task_statuses.update', $taskStatus))
+        ->class('w-50')
+        ->novalidate()
+        ->open() }}
 
-                @include('task_status.form')
+    <div class="flex flex-col">
 
-                <div class="mb-3">
-                    {{ html()->submit(__('app.update'))->class('btn btn-primary') }}
-                </div>
+        @include('task_status.form')
 
-                {{ html()->closeModelForm() }}
-            </div>
+        <div class="mb-3">
+            {{ html()->submit(__('app.update'))->class('bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded') }}
         </div>
+
+        {{ html()->closeModelForm() }}
     </div>
 
 @endsection

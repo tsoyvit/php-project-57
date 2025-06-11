@@ -2,23 +2,20 @@
 @section('h1', __('task_statuses.create'))
 @section('content')
 
-    <div class="container">
-        <div class="row">
-            <div class="col-md-4 ml-0 p-0">
-                {{ html()->modelForm($taskStatus, 'POST', route('task_statuses.store'))
-                    ->class('needs-validation')
-                    ->novalidate()
-                    ->open() }}
+    {{ html()->modelForm($taskStatus, 'POST', route('task_statuses.store'))
+        ->class('w-50')
+        ->novalidate()
+        ->open() }}
 
-                @include('task_status.form')
+    <div class="flex flex-col">
 
-                <div class="mb-3">
-                    {{ html()->submit(__('app.create'))->class('btn btn-primary') }}
-                </div>
+        @include('task_status.form')
 
-                {{ html()->closeModelForm() }}
-            </div>
+        <div class="mb-3">
+            {{ html()->submit(__('app.create'))->class('bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded') }}
         </div>
+
+        {{ html()->closeModelForm() }}
     </div>
 
 @endsection
