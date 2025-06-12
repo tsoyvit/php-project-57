@@ -34,5 +34,5 @@ migrate:
 seed:
 	php artisan db:seed
 
-d:
+dump:
 	composer dump-autoload

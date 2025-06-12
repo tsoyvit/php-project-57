@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Database\Factories\TaskFactory;
 use Eloquent;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -36,7 +37,7 @@ use Illuminate\Support\Carbon;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Task whereStatusId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Task whereUpdatedAt($value)
  *
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Label> $labels
+ * @property-read Collection<int, Label> $labels
  * @property-read int|null $labels_count
  *
  * @mixin Eloquent
