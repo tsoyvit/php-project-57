@@ -12,7 +12,7 @@ parameters:
     checkModelProperties: true
 
     ignoreErrors:
-        - '#Call to an undefined method Illuminate\\Database\\Eloquent\\Builder<.*>::allowedFilters\(\)#'
+#        - '#Call to an undefined method Illuminate\\Database\\Eloquent\\Builder<.*>::allowedFilters\(\)#'
         - identifier: missingType.generics
 
 

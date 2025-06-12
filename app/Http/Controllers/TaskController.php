@@ -18,8 +18,8 @@ class TaskController extends Controller
 {
     public function index(TaskFilterRequest $request): View
     {
-        $tasks = QueryBuilder::for(Task::class)
-            ->with(['status', 'creator', 'assignee'])
+        $query = Task::with(['status', 'creator', 'assignee']);
+        $tasks = QueryBuilder::for($query)
             ->allowedFilters([
                 AllowedFilter::exact('status_id'),
                 AllowedFilter::exact('created_by_id'),
@@ -51,8 +51,8 @@ class TaskController extends Controller
         $data = $request->validated();
         $data['created_by_id'] = auth()->id();
 
-        $newTask = Task::create($data);
-        $newTask->labels()->sync($data['labels'] ?? []);
+        $task = Task::create($data);
+        $task->labels()->sync($data['labels'] ?? []);
 
         return redirect(route('tasks.index'))
             ->with('success', __('flash.The task was created successfully'));
