@@ -37,7 +37,7 @@ class IndexTaskTest extends TestCase
         ]);
     }
 
-    public function it_can_filter_tasks_by_status(): void
+    public function testCanFilterTasksByStatus(): void
     {
         $response = $this->get(route('tasks.index', [
             'filter' => ['status_id' => $this->status->id]
@@ -51,7 +51,7 @@ class IndexTaskTest extends TestCase
         });
     }
 
-    public function it_can_filter_tasks_by_creator(): void
+    public function testCanFilterTasksByCreator(): void
     {
         $response = $this->get(route('tasks.index', [
             'filter' => ['created_by_id' => $this->creator->id]
@@ -65,7 +65,7 @@ class IndexTaskTest extends TestCase
         });
     }
 
-    public function it_can_filter_tasks_by_assignee(): void
+    public function testCanFilterTasksByAssignee(): void
     {
         $response = $this->get(route('tasks.index', [
             'filter' => ['assigned_to_id' => $this->assignee->id]
@@ -79,7 +79,7 @@ class IndexTaskTest extends TestCase
         });
     }
 
-    public function it_can_combine_multiple_filters(): void
+    public function testCanCombineMultipleFilters(): void
     {
         $response = $this->get(route('tasks.index', [
             'filter' => [

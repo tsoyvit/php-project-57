@@ -33,7 +33,7 @@ class ShowTaskTest extends TestCase
         $this->response->assertStatus(200);
     }
 
-    public function testReturn_404ForNonExistentTask(): void
+    public function testReturn404ForNonExistentTask(): void
     {
         $this->get(route('tasks.show', 9999))
             ->assertStatus(404);
