@@ -43,7 +43,7 @@ class UpdateTaskTest extends TestCase
         );
     }
 
-    public function test_quest_cannot_update_task(): void
+    public function testQuestCannotUpdateTask(): void
     {
         auth()->logout();
 
@@ -51,17 +51,17 @@ class UpdateTaskTest extends TestCase
             ->assertForbidden();
     }
 
-    public function test_authenticated_user_can_update_task(): void
+    public function testAuthenticatedUserCanUpdateTask(): void
     {
         $this->response->assertRedirect(route('tasks.index'));
     }
 
-    public function test_return_success_message_when_updated_task(): void
+    public function testReturnSuccessMessageWhenUpdatedTask(): void
     {
         $this->response->assertSessionHas(['success' => __('flash.The task has been successfully changed')]);
     }
 
-    public function test_database_has_updated_task(): void
+    public function testDatabaseHasUpdatedTask(): void
     {
         $this->assertDatabaseHas('tasks', $this->updatedTaskData);
     }

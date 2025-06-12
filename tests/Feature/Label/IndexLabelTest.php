@@ -24,17 +24,17 @@ class IndexLabelTest extends TestCase
         $this->response = $this->get(route('labels.index'));
     }
 
-    public function test_index_returns_success_response(): void
+    public function testIndexReturnsSuccessResponse(): void
     {
         $this->response->assertOk();
     }
 
-    public function test_render_correct_view(): void
+    public function testRenderCorrectView(): void
     {
         $this->response->assertViewIs('label.index');
     }
 
-    public function test_index_displays_labels(): void
+    public function testIndexDisplaysLabels(): void
     {
         foreach ($this->labels as $label) {
             $this->response->assertSee($label->name);

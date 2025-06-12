@@ -28,23 +28,23 @@ class ShowTaskTest extends TestCase
         $this->response = $this->get(route('tasks.show', $this->currentTask->id));
     }
 
-    public function test_return_success_response(): void
+    public function testReturnSuccessResponse(): void
     {
         $this->response->assertStatus(200);
     }
 
-    public function test_return_404_for_non_existent_task(): void
+    public function testReturn_404ForNonExistentTask(): void
     {
         $this->get(route('tasks.show', 9999))
             ->assertStatus(404);
     }
 
-    public function test_render_correct_view(): void
+    public function testRenderCorrectView(): void
     {
         $this->response->assertViewIs('task.show');
     }
 
-    public function test_passes_correct_task_to_view(): void
+    public function testPassesCorrectTaskToView(): void
     {
         $this->response->assertViewHas(
             'task',

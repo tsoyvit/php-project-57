@@ -24,24 +24,24 @@ class CreateTaskTest extends TestCase
         $this->response = $this->get(route('tasks.create'));
     }
 
-    public function test_guest_cannot_access_create_task(): void
+    public function testGuestCannotAccessCreateTask(): void
     {
         auth()->logout();
 
         $this->get(route('tasks.create'))->assertForbidden();
     }
 
-    public function test_authorized_user_can_create_task(): void
+    public function testAuthorizedUserCanCreateTask(): void
     {
         $this->response->assertOk();
     }
 
-    public function test_render_correct_view(): void
+    public function testRenderCorrectView(): void
     {
         $this->response->assertViewIs('task.create');
     }
 
-    public function test_view_contains_required_data(): void
+    public function testViewContainsRequiredData(): void
     {
         $this->response->assertViewHas(['taskStatuses', 'assignees']);
 

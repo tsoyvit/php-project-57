@@ -24,17 +24,17 @@ class IndexTaskStatusTest extends TestCase
         $this->response = $this->get(route('task_statuses.index'));
     }
 
-    public function test_index_returns_success_response(): void
+    public function testIndexReturnsSuccessResponse(): void
     {
         $this->response->assertOk();
     }
 
-    public function test_index_render_correct_view(): void
+    public function testIndexRenderCorrectView(): void
     {
         $this->response->assertViewIs('task_status.index');
     }
 
-    public function test_index_displays_task_statuses(): void
+    public function testIndexDisplaysTaskStatuses(): void
     {
         foreach ($this->taskStatuses as $status) {
             $this->response->assertSee($status->name);

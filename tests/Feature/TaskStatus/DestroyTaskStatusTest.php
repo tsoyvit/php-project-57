@@ -24,13 +24,13 @@ class DestroyTaskStatusTest extends TestCase
         $this->taskStatus = TaskStatus::factory()->create();
     }
 
-    public function test_quest_cannot_access_destroy(): void
+    public function testQuestCannotAccessDestroy(): void
     {
         $this->delete(route('task_statuses.destroy', $this->taskStatus))
             ->assertForbidden();
     }
 
-    public function test_destroy_cannot_be_destroyed_if_status_used(): void
+    public function testDestroyCannotBeDestroyedIfStatusUsed(): void
     {
         $this->actingAs($this->user);
 
@@ -48,7 +48,7 @@ class DestroyTaskStatusTest extends TestCase
         $this->assertDatabaseHas('task_statuses', ['id' => $status->id]);
     }
 
-    public function test_task_status_deleted_from_database(): void
+    public function testTaskStatusDeletedFromDatabase(): void
     {
         $this->actingAs($this->user);
 

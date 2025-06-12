@@ -38,7 +38,7 @@ class UpdateLabelTest extends TestCase
         );
     }
 
-    public function test_quest_cannot_update_label(): void
+    public function testQuestCannotUpdateLabel(): void
     {
         auth()->logout();
 
@@ -46,12 +46,12 @@ class UpdateLabelTest extends TestCase
             ->assertForbidden();
     }
 
-    public function test_authenticated_user_can_update_label(): void
+    public function testAuthenticatedUserCanUpdateLabel(): void
     {
         $this->response->assertRedirect(route('labels.index'));
     }
 
-    public function test_return_success_message_when_updated_label(): void
+    public function testReturnSuccessMessageWhenUpdatedLabel(): void
     {
         $this->response->assertSessionHas(
             'success',
@@ -59,7 +59,7 @@ class UpdateLabelTest extends TestCase
         );
     }
 
-    public function test_database_has_updated_label(): void
+    public function testDatabaseHasUpdatedLabel(): void
     {
         $this->assertDatabaseHas('labels', $this->updatedLabelData);
     }

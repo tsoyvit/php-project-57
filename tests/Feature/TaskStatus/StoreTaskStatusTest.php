@@ -33,7 +33,7 @@ class StoreTaskStatusTest extends TestCase
         );
     }
 
-    public function test_quest_cannot_access_store(): void
+    public function testQuestCannotAccessStore(): void
     {
         auth()->logout();
 
@@ -41,12 +41,12 @@ class StoreTaskStatusTest extends TestCase
             ->assertForbidden();
     }
 
-    public function test_authorized_user_can_store_task_status(): void
+    public function testAuthorizedUserCanStoreTaskStatus(): void
     {
         $this->response->assertRedirect(route('task_statuses.index'));
     }
 
-    public function test_return_flash_success_message(): void
+    public function testReturnFlashSuccessMessage(): void
     {
         $this->response->assertSessionHas(
             'success',
@@ -54,7 +54,7 @@ class StoreTaskStatusTest extends TestCase
         );
     }
 
-    public function test_database_has_new_task_status(): void
+    public function testDatabaseHasNewTaskStatus(): void
     {
         $this->assertDatabaseHas('task_statuses', $this->taskStatusData);
     }

@@ -27,19 +27,19 @@ class DestroyTaskTest extends TestCase
         $this->task = Task::factory()->withAuthor($this->author)->create();
     }
 
-    public function test_quest_cannot_access_destroy(): void
+    public function testQuestCannotAccessDestroy(): void
     {
         $this->delete(route('tasks.destroy', $this->task))
             ->assertForbidden();
     }
 
-    public function test_non_author_cannot_destroy_task(): void
+    public function testNonAuthorCannotDestroyTask(): void
     {
         $this->actingAs($this->nonAuthor);
         $this->delete(route('tasks.destroy', $this->task))->assertForbidden();
     }
 
-    public function test_task_deleted_from_database(): void
+    public function testTaskDeletedFromDatabase(): void
     {
         $this->actingAs($this->author);
 
