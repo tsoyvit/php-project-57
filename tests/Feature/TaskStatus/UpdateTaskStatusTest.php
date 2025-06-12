@@ -14,6 +14,7 @@ class UpdateTaskStatusTest extends TestCase
 
     private TaskStatus $taskStatus;
 
+    /** @var array<string, mixed> $updatedTaskStatusData */
     private array $updatedTaskStatusData;
 
     private TestResponse $response;
@@ -34,7 +35,7 @@ class UpdateTaskStatusTest extends TestCase
         );
     }
 
-    public function test_quest_cannot_update_task_status()
+    public function test_quest_cannot_update_task_status(): void
     {
         auth()->logout();
 
@@ -45,12 +46,12 @@ class UpdateTaskStatusTest extends TestCase
             ->assertForbidden();
     }
 
-    public function test_authenticated_user_can_update_task_status()
+    public function test_authenticated_user_can_update_task_status(): void
     {
         $this->response->assertRedirect(route('task_statuses.index'));
     }
 
-    public function test_return_success_message_when_updated_task_status()
+    public function test_return_success_message_when_updated_task_status(): void
     {
         $this->response->assertSessionHas(
             'success',
@@ -58,7 +59,7 @@ class UpdateTaskStatusTest extends TestCase
         );
     }
 
-    public function test_database_has_updated_task()
+    public function test_database_has_updated_task(): void
     {
         $this->assertDatabaseHas('task_statuses', $this->updatedTaskStatusData);
     }

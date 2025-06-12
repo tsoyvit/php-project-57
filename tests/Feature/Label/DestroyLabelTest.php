@@ -24,13 +24,13 @@ class DestroyLabelTest extends TestCase
         $this->label = Label::factory()->create();
     }
 
-    public function test_quest_cannot_access_destroy()
+    public function test_quest_cannot_access_destroy(): void
     {
         $this->delete(route('labels.destroy', $this->label))
             ->assertForbidden();
     }
 
-    public function test_destroy_cannot_be_destroyed_if_label_used()
+    public function test_destroy_cannot_be_destroyed_if_label_used(): void
     {
         $this->actingAs($this->user);
 
@@ -48,7 +48,7 @@ class DestroyLabelTest extends TestCase
         $this->assertDatabaseHas('labels', ['id' => $this->label->id]);
     }
 
-    public function test_label_deleted_from_database()
+    public function test_label_deleted_from_database(): void
     {
         $this->actingAs($this->user);
 

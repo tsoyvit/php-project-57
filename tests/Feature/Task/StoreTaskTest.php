@@ -14,6 +14,7 @@ class StoreTaskTest extends TestCase
 
     private TestResponse $response;
 
+    /** @var array<string, mixed> $taskData */
     private array $taskData;
 
     protected function setUp(): void
@@ -32,7 +33,7 @@ class StoreTaskTest extends TestCase
         $this->response = $this->post(route('tasks.store'), $this->taskData);
     }
 
-    public function test_quest_cannot_access_store()
+    public function test_quest_cannot_access_store(): void
     {
         auth()->logout();
 
@@ -40,12 +41,12 @@ class StoreTaskTest extends TestCase
             ->assertForbidden();
     }
 
-    public function test_authorized_user_can_store_task()
+    public function test_authorized_user_can_store_task(): void
     {
         $this->response->assertRedirect(route('tasks.index'));
     }
 
-    public function test_return_flash_success_message()
+    public function test_return_flash_success_message(): void
     {
         $this->response->assertSessionHas(
             'success',
@@ -53,7 +54,7 @@ class StoreTaskTest extends TestCase
         );
     }
 
-    public function test_database_has_new_task()
+    public function test_database_has_new_task(): void
     {
         $this->assertDatabaseHas('tasks', $this->taskData);
     }

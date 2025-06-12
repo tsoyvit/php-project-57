@@ -99,7 +99,7 @@ class IndexTaskTest extends TestCase
         });
     }
 
-    public function test_index_render_correct_view()
+    public function test_index_render_correct_view(): void
     {
         $response = $this->get(route('tasks.index'));
         $response->assertViewIs('task.index');

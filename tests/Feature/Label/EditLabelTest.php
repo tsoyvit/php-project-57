@@ -27,7 +27,7 @@ class EditLabelTest extends TestCase
         $this->response = $this->get(route('labels.edit', $this->label));
     }
 
-    public function test_quest_cannot_access_edit_label()
+    public function test_quest_cannot_access_edit_label(): void
     {
         auth()->logout();
 
@@ -35,17 +35,17 @@ class EditLabelTest extends TestCase
             ->assertForbidden();
     }
 
-    public function test_authorized_user_can_edit_label()
+    public function test_authorized_user_can_edit_label(): void
     {
         $this->response->assertOk();
     }
 
-    public function test_render_correct_view()
+    public function test_render_correct_view(): void
     {
         $this->response->assertViewIs('label.edit');
     }
 
-    public function test_edit_view_contains_required_data()
+    public function test_edit_view_contains_required_data(): void
     {
         $this->response->assertViewHas(
             'label',

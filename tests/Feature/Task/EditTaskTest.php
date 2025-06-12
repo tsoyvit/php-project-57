@@ -27,7 +27,7 @@ class EditTaskTest extends TestCase
         $this->response = $this->get(route('tasks.edit', $this->task));
     }
 
-    public function test_quest_cannot_access_edit_task()
+    public function test_quest_cannot_access_edit_task(): void
     {
         auth()->logout();
 
@@ -35,17 +35,17 @@ class EditTaskTest extends TestCase
             ->assertForbidden();
     }
 
-    public function test_authorized_user_can_edit_task()
+    public function test_authorized_user_can_edit_task(): void
     {
         $this->response->assertOk();
     }
 
-    public function test_render_correct_view()
+    public function test_render_correct_view(): void
     {
         $this->response->assertViewIs('task.edit');
     }
 
-    public function test_edit_view_contains_required_data()
+    public function test_edit_view_contains_required_data(): void
     {
         $this->response->assertViewHas(['assignees', 'taskStatuses']);
         $this->response->assertViewHas(

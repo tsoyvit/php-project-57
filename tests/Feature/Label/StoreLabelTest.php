@@ -13,6 +13,7 @@ class StoreLabelTest extends TestCase
 
     private TestResponse $response;
 
+    /** @var array<string, mixed> $labelData */
     private array $labelData;
 
     protected function setUp(): void
@@ -30,7 +31,7 @@ class StoreLabelTest extends TestCase
         $this->response = $this->post(route('labels.store'), $this->labelData);
     }
 
-    public function test_quest_cannot_access_store()
+    public function test_quest_cannot_access_store(): void
     {
         auth()->logout();
 
@@ -38,12 +39,12 @@ class StoreLabelTest extends TestCase
             ->assertForbidden();
     }
 
-    public function test_authorized_user_can_store_label()
+    public function test_authorized_user_can_store_label(): void
     {
         $this->response->assertRedirect(route('labels.index'));
     }
 
-    public function test_return_flash_success_message()
+    public function test_return_flash_success_message(): void
     {
         $this->response->assertSessionHas(
             'success',
@@ -51,7 +52,7 @@ class StoreLabelTest extends TestCase
         );
     }
 
-    public function test_database_has_new_label()
+    public function test_database_has_new_label(): void
     {
         $this->assertDatabaseHas('labels', $this->labelData);
     }
