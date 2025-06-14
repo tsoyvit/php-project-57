@@ -15,4 +15,5 @@ return [
     'confirm_delete' => 'Вы уверены?',
     'change_status' => 'Изменение статуса',
     'delete' => 'Удалить',
+    'change' => 'Изменить',
 ];

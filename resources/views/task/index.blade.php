@@ -27,14 +27,14 @@
             {{ html()->form()->close() }}
         </div>
 
-        @auth
+        @can('create', App\Models\Task::class)
             <div class="ml-0">
                 <a href="{{ route('tasks.create') }}"
                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-2">
                     {{ __('task.create task') }}
                 </a>
             </div>
-        @endauth
+        @endcan
 
     </div>
 
@@ -71,20 +71,22 @@
                 <td>{{ $task->assignee->name ?? ''}}</td>
                 <td>{{ $task->created_at->format('d.m.Y') }}</td>
                 <td>
+                    @can('delete', $task)
+                        <a class="text-red-600 hover:text-red-900" href="{{ route('tasks.destroy', $task) }}"
+                           data-confirm="{{ __('task.are you sure?') }}" data-method="delete"
+                           rel="nofollow">{{ __('task.delete') }}</a>
+                    @endcan
 
-                    @auth
-                        @can('delete', $task)
-                            <a class="text-red-600 hover:text-ted-900" href="{{ route('tasks.destroy', $task) }}" data-confirm="{{ __('task.are you sure?') }}" data-method="delete" rel="nofollow">{{ __('task.delete') }}</a>
-                        @endcan
-
+                    @can('update', $task)
                         <a href="{{ route('tasks.edit', $task) }}"
                            class="inline-block text-blue-500 hover:text-blue-900 ml-0">
                             {{ __('task.change') }}
                         </a>
-                    @endauth
+                    @endcan
                 </td>
             </tr>
         @endforeach
+
         </tbody>
     </table>
 

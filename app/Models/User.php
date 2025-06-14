@@ -86,4 +86,9 @@ class User extends Authenticatable implements MustVerifyEmail
             'password' => 'hashed',
         ];
     }
+
+    public function tasks(): HasMany
+    {
+        return $this->hasMany(Task::class, 'created_by_id');
+    }
 }

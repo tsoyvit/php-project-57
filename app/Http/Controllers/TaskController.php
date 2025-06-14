@@ -48,11 +48,11 @@ class TaskController extends Controller
 
     public function store(TaskRequest $request): RedirectResponse
     {
-        $data = $request->validated();
-        $data['created_by_id'] = auth()->id();
+        $validatedData = $request->validated();
+        $validatedData['created_by_id'] = auth()->id();
 
-        $task = Task::create($data);
-        $task->labels()->sync($data['labels'] ?? []);
+        $task = Task::create($validatedData);
+        $task->labels()->sync($validatedData['labels'] ?? []);
 
         return redirect(route('tasks.index'))
             ->with('success', __('flash.The task was created successfully'));

@@ -4,13 +4,13 @@
 
     @include('partials.flash')
 
-    @auth
+    @can('create', App\Models\Label::class)
         <div>
             <a href="{{ route('labels.create') }}"
                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                 {{ __('label.create label') }}</a>
         </div>
-    @endauth
+    @endcan
 
 
     <table class="mt-4">
@@ -37,14 +37,19 @@
                 <td>{{ $label->description }}</td>
                 <td>{{ $label->created_at->format('d.m.Y') }}</td>
                 <td>
-                    @auth
-                        <a class="text-red-600 hover:text-ted-900" href="{{ route('labels.destroy', $label->id) }}" data-confirm="{{ __('label.are you sure?') }}" data-method="delete" rel="nofollow">{{ __('label.delete') }}</a>
+                    @can('delete', $label)
+                        <a class="text-red-600 hover:text-red-900" href="{{ route('labels.destroy', $label->id) }}"
+                           data-confirm="{{ __('label.are you sure?') }}" data-method="delete" rel="nofollow">
+                            {{ __('label.delete') }}
+                        </a>
+                    @endcan
 
+                    @can('update', $label)
                         <a class="inline-block text-blue-500 hover:text-blue-900 ml-0"
                            href="{{ route('labels.edit', $label) }}">
                             {{ __('label.change') }}
                         </a>
-                    @endauth
+                    @endcan
                 </td>
             </tr>
         @endforeach

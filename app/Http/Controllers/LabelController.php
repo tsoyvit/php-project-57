@@ -25,8 +25,8 @@ class LabelController extends Controller
 
     public function store(LabelRequest $request): RedirectResponse
     {
-        $data = $request->all();
-        Label::create($data);
+        $validatedData = $request->all();
+        Label::create($validatedData);
 
         return redirect(route('labels.index'))
             ->with('success', __('flash.The tag created successfully'));
