@@ -13,6 +13,7 @@
 /bootstrap/cache/*.php
 /database/database.sqlite
 /database/*.sqlite
+build/logs/
 *.log
 
 ### IDE ###

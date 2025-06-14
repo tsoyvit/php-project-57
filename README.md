@@ -1,5 +1,5 @@
 [![hexlet-check](https://github.com/tsoyvit/php-project-57/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/tsoyvit/php-project-57/actions/workflows/hexlet-check.yml)
-[![Laravel Tests](https://github.com/tsoyvit/php-project-57/actions/workflows/tests.yml/badge.svg)](https://github.com/tsoyvit/php-project-57/actions/workflows/tests.yml)
+[![Laravel Ci](https://github.com/tsoyvit/php-project-57/actions/workflows/laravel-ci.yml/badge.svg)](https://github.com/tsoyvit/php-project-57/actions/workflows/laravel-ci.yml)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=tsoyvit_php-project-57&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=tsoyvit_php-project-57)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=tsoyvit_php-project-57&metric=coverage)](https://sonarcloud.io/summary/new_code?id=tsoyvit_php-project-57)
 [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=tsoyvit_php-project-57&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=tsoyvit_php-project-57)
