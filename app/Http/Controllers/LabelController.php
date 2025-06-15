@@ -6,9 +6,18 @@ use App\Http\Requests\LabelRequest;
 use App\Models\Label;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 
-class LabelController extends Controller
+class LabelController extends Controller implements HasMiddleware
 {
+    public static function middleware(): array
+    {
+        return [
+            new Middleware('auth.forbid', except: ['index']),
+        ];
+    }
+
     public function index(): View
     {
         $labels = Label::all();
@@ -30,6 +39,11 @@ class LabelController extends Controller
 
         return redirect(route('labels.index'))
             ->with('success', __('flash.The tag created successfully'));
+    }
+
+    public function show(Label $label): void
+    {
+        abort(403, 'This action is unauthorized.');
     }
 
     public function edit(Label $label): View

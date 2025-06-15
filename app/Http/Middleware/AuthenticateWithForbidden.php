@@ -6,7 +6,10 @@ use Illuminate\Auth\Middleware\Authenticate as BaseAuthenticate;
 
 class AuthenticateWithForbidden extends BaseAuthenticate
 {
-    protected function redirectTo($request): ?string
+    /**
+     * @param string[] $guards
+     */
+    protected function unauthenticated($request, array $guards): void
     {
         abort(403, 'This action is unauthorized.');
     }

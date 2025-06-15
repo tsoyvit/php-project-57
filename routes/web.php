@@ -20,32 +20,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::resource('task_statuses', TaskStatusController::class)
-    ->except('index', 'show')
-    ->middleware('auth.forbid');
-
-Route::get('task_statuses', [TaskStatusController::class, 'index'])
-    ->name('task_statuses.index');
-
-Route::get(
-    'task_statuses/{task_status}',
-    fn () => abort(403, 'This action is unauthorized.')
-);
-
-Route::resource('tasks', TaskController::class)
-    ->except('index', 'show')
-    ->middleware('auth.forbid');
-
-Route::resource('tasks', TaskController::class)
-    ->only('index', 'show');
-
-Route::resource('labels', LabelController::class)
-    ->except('index', 'show')
-    ->middleware('auth.forbid');
-
-Route::get('labels', [LabelController::class, 'index'])
-    ->name('labels.index');
-
-Route::get('labels/{label}', fn () => abort(403, 'This action is unauthorized.'));
+Route::resource('task_statuses', TaskStatusController::class);
+Route::resource('tasks', TaskController::class);
+Route::resource('labels', LabelController::class);
 
 require __DIR__ . '/auth.php';

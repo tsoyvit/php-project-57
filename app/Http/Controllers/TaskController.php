@@ -8,14 +8,23 @@ use App\Models\Label;
 use App\Models\Task;
 use App\Models\TaskStatus;
 use App\Models\User;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Gate;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 
-class TaskController extends Controller
+class TaskController extends Controller implements HasMiddleware
 {
+    public static function middleware(): array
+    {
+        return [
+            new Middleware('auth.forbid', except: ['index', 'show']),
+        ];
+    }
+
     public function index(TaskFilterRequest $request): View
     {
         $query = Task::with(['status', 'creator', 'assignee']);
@@ -88,9 +97,12 @@ class TaskController extends Controller
             ->with('success', __('flash.The task has been successfully changed'));
     }
 
+    /**
+     * @throws AuthorizationException
+     */
     public function destroy(Task $task): RedirectResponse
     {
-        Gate::authorize('delete', $task);
+        $this->authorize('delete', $task);
         $task->delete();
 
         return redirect(route('tasks.index'))
