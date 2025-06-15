@@ -20,11 +20,11 @@ class TaskFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $this->faker->unique()->sentence,
-            'description' => $this->faker->paragraph,
-            'status_id' => TaskStatus::factory(),
-            'created_by_id' => User::factory(),
-            'assigned_to_id' => User::factory(),
+            'name' => fake()->realText(40),
+            'description' => fake()->realText(100),
+            'status_id' => TaskStatus::inRandomOrder()->first()?->id ?? TaskStatus::factory(),
+            'created_by_id' => User::inRandomOrder()->first()?->id ?? User::factory(),
+            'assigned_to_id' => User::inRandomOrder()->first()?->id ?? User::factory(),
         ];
     }
 
@@ -42,7 +42,7 @@ class TaskFactory extends Factory
         ]);
     }
 
-    public function withStatus($status): static
+    public function withStatus(TaskStatus $status): static
     {
         return $this->state(fn (array $attributes) => [
             'status_id' => $status->id,

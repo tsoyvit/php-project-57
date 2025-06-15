@@ -18,6 +18,8 @@ use Spatie\QueryBuilder\QueryBuilder;
 
 class TaskController extends Controller implements HasMiddleware
 {
+    private const PER_PAGE = 15;
+
     public static function middleware(): array
     {
         return [
@@ -35,7 +37,8 @@ class TaskController extends Controller implements HasMiddleware
                 AllowedFilter::exact('assigned_to_id'),
             ])
             ->allowedSorts(['id'])
-            ->paginate(15);
+            ->paginate(self::PER_PAGE)
+            ->withQueryString();
 
         return view('task.index', [
             'tasks' => $tasks,
@@ -55,12 +58,17 @@ class TaskController extends Controller implements HasMiddleware
         ]);
     }
 
+
     public function store(TaskRequest $request): RedirectResponse
     {
         $validatedData = $request->validated();
-        $validatedData['created_by_id'] = auth()->id();
 
-        $task = Task::create($validatedData);
+        /** @var User $user */
+        $user = auth()->user();
+
+        /** @var Task $task */
+        $task = $user->tasks()->create($validatedData);
+
         $task->labels()->sync($validatedData['labels'] ?? []);
 
         return redirect(route('tasks.index'))

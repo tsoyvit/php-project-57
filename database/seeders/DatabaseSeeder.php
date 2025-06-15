@@ -13,8 +13,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        //        User::factory(10)->create();
+        if (User::count() === 0) {
+            User::factory()->count(10)->create();
+        }
+
         $this->call(TaskStatusSeeder::class);
         $this->call(LabelSeeder::class);
+        $this->call(TaskSeeder::class,);
     }
 }
