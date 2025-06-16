@@ -21,9 +21,7 @@ class LabelControllerTest extends TestCase
         $this->label = Label::factory()->create();
     }
 
-    // INDEX
-
-    public function testIndexReturnsSuccessResponse(): void
+    public function testIndex(): void
     {
         $response = $this->get(route('labels.index'));
         $response->assertOk();
@@ -32,7 +30,6 @@ class LabelControllerTest extends TestCase
     public function testIndexDisplaysLabels(): void
     {
         $labels = Label::factory()->count(3)->create();
-
         $response = $this->get(route('labels.index'));
 
         foreach ($labels as $label) {
@@ -40,15 +37,12 @@ class LabelControllerTest extends TestCase
         }
     }
 
-
-    // CREATE
-
-    public function testGuestCannotAccessCreateLabel(): void
+    public function testCreateAsGuest(): void
     {
         $this->get(route('labels.create'))->assertForbidden();
     }
 
-    public function testAuthorizedUserCanCreateLabel(): void
+    public function testCreate(): void
     {
         $this->actingAs($this->user);
 
@@ -58,14 +52,9 @@ class LabelControllerTest extends TestCase
         $response->assertViewHas('label', fn ($label) => $label instanceof Label && ! $label->exists);
     }
 
-    // STORE
-
-    public function testGuestCannotAccessStore(): void
+    public function testStoreAsGuest(): void
     {
-        $labelData = [
-            'name' => 'test',
-            'description' => 'test',
-        ];
+        $labelData = Label::factory()->make()->toArray();
 
         $this->post(route('labels.store'), $labelData)
             ->assertForbidden();
@@ -74,15 +63,11 @@ class LabelControllerTest extends TestCase
     /**
      * @throws \JsonException
      */
-    public function testAuthorizedUserCanStoreLabel(): void
+    public function testStore(): void
     {
         $this->actingAs($this->user);
 
-        $labelData = [
-            'name' => 'test',
-            'description' => 'test',
-        ];
-
+        $labelData = Label::factory()->make()->toArray();
         $response = $this->post(route('labels.store'), $labelData);
 
         $response->assertRedirect(route('labels.index'));
@@ -92,15 +77,13 @@ class LabelControllerTest extends TestCase
         $this->assertDatabaseHas('labels', $labelData);
     }
 
-    // EDIT
-
-    public function testGuestCannotAccessEditLabel(): void
+    public function testEditAsGuest(): void
     {
         $this->get(route('labels.edit', $this->label))
             ->assertForbidden();
     }
 
-    public function testAuthorizedUserCanEditLabel(): void
+    public function testEdit(): void
     {
         $this->actingAs($this->user);
 
@@ -113,9 +96,7 @@ class LabelControllerTest extends TestCase
         );
     }
 
-    // UPDATE
-
-    public function testGuestCannotUpdateLabel(): void
+    public function testUpdateAsGuest(): void
     {
         $updatedData = [
             'name' => 'New name',
@@ -129,7 +110,7 @@ class LabelControllerTest extends TestCase
     /**
      * @throws \JsonException
      */
-    public function testAuthenticatedUserCanUpdateLabel(): void
+    public function testUpdate(): void
     {
         $this->actingAs($this->user);
 
@@ -150,15 +131,13 @@ class LabelControllerTest extends TestCase
         $this->assertDatabaseHas('labels', $updatedData);
     }
 
-    // DESTROY
-
-    public function testGuestCannotAccessDestroy(): void
+    public function testDestroyAsGuest(): void
     {
         $this->delete(route('labels.destroy', $this->label))
             ->assertForbidden();
     }
 
-    public function testDestroyCannotBeDestroyedIfLabelUsed(): void
+    public function testDestroyUsedLabel(): void
     {
         $this->actingAs($this->user);
 
@@ -179,7 +158,7 @@ class LabelControllerTest extends TestCase
     /**
      * @throws \JsonException
      */
-    public function testLabelDeletedFromDatabase(): void
+    public function testDestroy(): void
     {
         $this->actingAs($this->user);
 

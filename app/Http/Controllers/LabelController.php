@@ -34,7 +34,7 @@ class LabelController extends Controller implements HasMiddleware
 
     public function store(LabelRequest $request): RedirectResponse
     {
-        $validatedData = $request->all();
+        $validatedData = $request->validated();
         Label::create($validatedData);
 
         return redirect(route('labels.index'))
@@ -53,7 +53,7 @@ class LabelController extends Controller implements HasMiddleware
 
     public function update(LabelRequest $request, Label $label): RedirectResponse
     {
-        $label->update($request->all());
+        $label->update($request->validated());
 
         return redirect(route('labels.index'))
             ->with('success', __('flash.The tag has been successfully changed'));

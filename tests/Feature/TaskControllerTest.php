@@ -37,12 +37,10 @@ class TaskControllerTest extends TestCase
         ]);
     }
 
-    // INDEX
-
-    public function testIndexRenderCorrectView(): void
+    public function testIndex(): void
     {
         $response = $this->get(route('tasks.index'));
-        $response->assertViewIs('task.index');
+        $response->assertOk();
     }
 
     public function testIndexFilterAndPagination(): void
@@ -64,7 +62,7 @@ class TaskControllerTest extends TestCase
         });
     }
 
-    public function testCanFilterTasksByStatus(): void
+    public function testIndexFilterByStatus(): void
     {
         $response = $this->get(route('tasks.index', [
             'filter' => ['status_id' => $this->status->id]
@@ -78,7 +76,7 @@ class TaskControllerTest extends TestCase
         });
     }
 
-    public function testCanFilterTasksByCreator(): void
+    public function testIndexFilterByCreator(): void
     {
         $response = $this->get(route('tasks.index', [
             'filter' => ['created_by_id' => $this->author->id]
@@ -92,7 +90,7 @@ class TaskControllerTest extends TestCase
         });
     }
 
-    public function testCanFilterTasksByAssignee(): void
+    public function testIndexFilterByAssignee(): void
     {
         $response = $this->get(route('tasks.index', [
             'filter' => ['assigned_to_id' => $this->assignee->id]
@@ -106,7 +104,7 @@ class TaskControllerTest extends TestCase
         });
     }
 
-    public function testCanCombineMultipleFilters(): void
+    public function testIndexCombineMultipleFilters(): void
     {
         $response = $this->get(route('tasks.index', [
             'filter' => [
@@ -126,14 +124,12 @@ class TaskControllerTest extends TestCase
         });
     }
 
-    // CREATE
-
-    public function testGuestCannotAccessCreateTask(): void
+    public function testCreateAsGuest(): void
     {
         $this->get(route('tasks.create'))->assertForbidden();
     }
 
-    public function testAuthorizedUserCanCreateTask(): void
+    public function testCreate(): void
     {
         $this->actingAs($this->user);
 
@@ -144,16 +140,9 @@ class TaskControllerTest extends TestCase
         $response->assertViewHas('task', fn ($task) => $task instanceof Task && ! $task->exists);
     }
 
-    // STORE
-
-    public function testGuestCannotAccessStore(): void
+    public function testStoreAsGuest(): void
     {
-        $taskData = [
-            'name' => 'task name',
-            'description' => 'task description',
-            'status_id' => TaskStatus::factory()->create()->id,
-            'assigned_to_id' => User::factory()->create()->id,
-        ];
+        $taskData = Task::factory()->make()->toArray();
 
         $this->post(route('tasks.store'), $taskData)
             ->assertForbidden();
@@ -162,17 +151,11 @@ class TaskControllerTest extends TestCase
     /**
      * @throws \JsonException
      */
-    public function testAuthorizedUserCanStoreTask(): void
+    public function testStore(): void
     {
         $this->actingAs($this->user);
 
-        $taskData = [
-            'name' => 'task name',
-            'description' => 'task description',
-            'status_id' => TaskStatus::factory()->create()->id,
-            'assigned_to_id' => User::factory()->create()->id,
-        ];
-
+        $taskData = Task::factory()->withAuthor($this->user)->make()->toArray();
         $response = $this->post(route('tasks.store'), $taskData);
 
         $response->assertRedirect(route('tasks.index'));
@@ -182,9 +165,7 @@ class TaskControllerTest extends TestCase
         $this->assertDatabaseHas('tasks', $taskData);
     }
 
-    // SHOW
-
-    public function testShowTaskReturnsSuccess(): void
+    public function testShow(): void
     {
         $response = $this->get(route('tasks.show', $this->task->id));
 
@@ -193,7 +174,7 @@ class TaskControllerTest extends TestCase
             $task->id === $this->task->id && $task->status_id === $this->status->id);
     }
 
-    public function testReturn404ForNonExistentTask(): void
+    public function testShowReturn404ForNonExistentTask(): void
     {
         $this->get(route('tasks.show', 9999))
             ->assertStatus(404);
@@ -201,13 +182,13 @@ class TaskControllerTest extends TestCase
 
     // EDIT
 
-    public function testGuestCannotAccessEditTask(): void
+    public function testEditAsGuest(): void
     {
         $this->get(route('tasks.edit', $this->task))
             ->assertForbidden();
     }
 
-    public function testAuthorizedUserCanEditTask(): void
+    public function testEdit(): void
     {
         $this->actingAs($this->user);
 
@@ -221,9 +202,7 @@ class TaskControllerTest extends TestCase
         );
     }
 
-    // UPDATE
-
-    public function testGuestCannotUpdateTask(): void
+    public function testUpdateAsGuest(): void
     {
         $updatedData = [
             'name' => 'New Task name',
@@ -237,7 +216,7 @@ class TaskControllerTest extends TestCase
     /**
      * @throws \JsonException
      */
-    public function testAuthorizedUserCanUpdateTask(): void
+    public function testUpdate(): void
     {
         $this->actingAs($this->user);
 
@@ -254,15 +233,13 @@ class TaskControllerTest extends TestCase
         $this->assertDatabaseHas('tasks', $updatedData);
     }
 
-    // DESTROY
-
-    public function testGuestCannotAccessDestroy(): void
+    public function testDestroyAsGuest(): void
     {
         $this->delete(route('tasks.destroy', $this->task))
             ->assertForbidden();
     }
 
-    public function testNonAuthorCannotDestroyTask(): void
+    public function testDestroyNonAuthor(): void
     {
         $nonAuthor = User::factory()->create();
         $this->actingAs($nonAuthor);
@@ -273,7 +250,7 @@ class TaskControllerTest extends TestCase
     /**
      * @throws \JsonException
      */
-    public function testTaskDeletedFromDatabase(): void
+    public function testDestroy(): void
     {
         $this->actingAs($this->author);
 

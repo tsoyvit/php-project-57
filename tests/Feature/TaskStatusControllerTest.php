@@ -21,9 +21,7 @@ class TaskStatusControllerTest extends TestCase
         $this->taskStatus = TaskStatus::factory()->create();
     }
 
-    // INDEX
-
-    public function testIndexReturnsSuccessResponse(): void
+    public function testIndex(): void
     {
         $response = $this->get(route('task_statuses.index'));
         $response->assertOk();
@@ -40,15 +38,12 @@ class TaskStatusControllerTest extends TestCase
         }
     }
 
-
-    // CREATE
-
-    public function testGuestCannotAccessCreateStatus(): void
+    public function testCreateAsGuest(): void
     {
         $this->get(route('task_statuses.create'))->assertForbidden();
     }
 
-    public function testAuthorizedUserCanCreateStatus(): void
+    public function testCreate(): void
     {
         $this->actingAs($this->user);
 
@@ -61,9 +56,7 @@ class TaskStatusControllerTest extends TestCase
         );
     }
 
-    // STORE
-
-    public function testGuestCannotAccessStore(): void
+    public function testStoreAsGuest(): void
     {
         $this->post(route('task_statuses.store'), ['name' => 'Task Status'])
             ->assertForbidden();
@@ -72,7 +65,7 @@ class TaskStatusControllerTest extends TestCase
     /**
      * @throws \JsonException
      */
-    public function testAuthorizedUserCanStoreStatus(): void
+    public function testStore(): void
     {
         $this->actingAs($this->user);
 
@@ -88,15 +81,13 @@ class TaskStatusControllerTest extends TestCase
         $this->assertDatabaseHas('task_statuses', ['name' => 'Task Status']);
     }
 
-    // EDIT
-
-    public function testGuestCannotAccessEditStatus(): void
+    public function testEditAsGuest(): void
     {
         $this->get(route('task_statuses.edit', $this->taskStatus))
             ->assertForbidden();
     }
 
-    public function testAuthorizedUserCanEditStatus(): void
+    public function testEdi(): void
     {
         $this->actingAs($this->user);
 
@@ -109,21 +100,17 @@ class TaskStatusControllerTest extends TestCase
         );
     }
 
-    // UPDATE
-
-    public function testGuestCannotUpdateStatus(): void
+    public function testUpdateAsGuest(): void
     {
-        $this->patch(
-            route('task_statuses.update', $this->taskStatus),
-            ['name' => 'New name Task Status']
-        )
+        $updatedData = ['name' => 'New name Task Status'];
+        $this->patch(route('task_statuses.update', $this->taskStatus), $updatedData)
             ->assertForbidden();
     }
 
     /**
      * @throws \JsonException
      */
-    public function testAuthenticatedUserCanUpdateStatus(): void
+    public function testUpdate(): void
     {
         $this->actingAs($this->user);
 
@@ -144,15 +131,13 @@ class TaskStatusControllerTest extends TestCase
         $this->assertDatabaseHas('task_statuses', $updatedData);
     }
 
-    // DESTROY
-
-    public function testGuestCannotAccessDestroy(): void
+    public function testDestroyAsGuest(): void
     {
         $this->delete(route('task_statuses.destroy', $this->taskStatus))
             ->assertForbidden();
     }
 
-    public function testDestroyCannotBeDestroyedIfStatusUsed(): void
+    public function testDestroyUsedTaskStatus(): void
     {
         $this->actingAs($this->user);
 
@@ -173,7 +158,7 @@ class TaskStatusControllerTest extends TestCase
     /**
      * @throws \JsonException
      */
-    public function testTaskStatusDeletedFromDatabase(): void
+    public function testDestroy(): void
     {
         $this->actingAs($this->user);
 
