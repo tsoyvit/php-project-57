@@ -1,19 +1,18 @@
 <nav class="bg-white border-gray-200 py-2.5 dark:bg-gray-900 shadow-md">
     <div class="flex flex-wrap items-center justify-between max-w-screen-xl px-4 mx-auto">
         <a href="{{ route('home') }}" class="flex items-center">
-            <span
-                class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">{{ __('app.task_manager') }}</span>
+            <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">
+                {{ __('app.task_manager') }}
+            </span>
         </a>
 
         <div class="flex items-center lg:order-2">
-
             @auth
                 <a href="{{ route('logout') }}"
                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                     {{ __('app.logout') }}
                 </a>
-
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">
                     @csrf
                 </form>
@@ -26,9 +25,7 @@
                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-2">
                     {{ __('app.registration') }}
                 </a>
-
             @endauth
-
         </div>
 
         <div class="items-center justify-between hidden w-full lg:flex lg:w-auto lg:order-1">
@@ -53,6 +50,7 @@
                 </li>
             </ul>
         </div>
+
     </div>
 </nav>
 

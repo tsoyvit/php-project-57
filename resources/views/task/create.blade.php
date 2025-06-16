@@ -6,17 +6,12 @@
         ->class('w-50')
         ->novalidate()
         ->open() }}
-
     <div class="flex flex-col">
-
         @include('task.form')
-
         <div class="mb-2">
             {{ html()->submit(__('task.create'))->class('bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded') }}
         </div>
-
-        {{ html()->closeModelForm() }}
-
     </div>
+    {{ html()->closeModelForm() }}
 
 @endsection

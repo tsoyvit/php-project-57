@@ -25,9 +25,7 @@
         </thead>
 
         <tbody>
-
         @foreach($taskStatuses as $taskStatus)
-
             <tr class="border-b border-dashed text-left">
                 <td>{{ $taskStatus->id }}</td>
                 <td>{{ $taskStatus->name }}</td>
@@ -48,9 +46,7 @@
                     @endcan
                 </td>
             </tr>
-
         @endforeach
-
         </tbody>
     </table>
 

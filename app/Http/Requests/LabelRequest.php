@@ -30,7 +30,7 @@ class LabelRequest extends FormRequest
                 'string',
                 'max:255',
                 Rule::unique('labels', 'name')
-                    ->ignore($this->route('labels')),
+                    ->ignore($this->route('label')),
             ],
             'description' => [
                 'nullable',
