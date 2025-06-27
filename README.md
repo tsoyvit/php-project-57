@@ -63,8 +63,8 @@ Task Manager — система управления задачами. Она п
 Шаги установки
 1. Клонируйте репозиторий:
 ```bash
-git clone https://github.com/tsoyvit/php-project-57.git
-cd php-project-57
+git clone https://github.com/tsoyvit/task-manager-laravel.git
+cd task-manager-laravel
 ```
 2. Выполните установку зависимостей и настройку проекта:
 ```bash
