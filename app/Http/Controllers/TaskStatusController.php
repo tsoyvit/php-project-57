@@ -6,18 +6,9 @@ use App\Http\Requests\TaskStatusRequest;
 use App\Models\TaskStatus;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Routing\Controllers\HasMiddleware;
-use Illuminate\Routing\Controllers\Middleware;
 
-class TaskStatusController extends Controller implements HasMiddleware
+class TaskStatusController extends Controller
 {
-    public static function middleware(): array
-    {
-        return [
-            new Middleware('auth.forbid', except: ['index']),
-        ];
-    }
-
     public function index(): View
     {
         $taskStatuses = TaskStatus::all();
