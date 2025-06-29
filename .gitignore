@@ -15,6 +15,7 @@
 /database/*.sqlite
 build/logs/
 *.log
+public_html
 
 ### IDE ###
 /.idea/httpRequests
