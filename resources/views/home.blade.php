@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
 
-    <h1 class="max-w-2xl mb-4 text-4xl font-extrabold leading-none tracking-tight md:text-5xl xl:text-6xl dark:text-white">
+    <h1 class="max-w-2xl mb-4 text-4xl font-extrabold leading-none tracking-tight md:text-5xl xl:text-6xl">
         {{ __('app.greeting') }}
     </h1>
 

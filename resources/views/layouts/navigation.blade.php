@@ -1,7 +1,7 @@
-<nav class="bg-white border-gray-200 py-2.5 dark:bg-gray-900 shadow-md">
+<nav class="bg-white border-gray-200 py-2.5 shadow-md">
     <div class="flex flex-wrap items-center justify-between max-w-screen-xl px-4 mx-auto">
         <a href="{{ route('home') }}" class="flex items-center">
-            <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">
+            <span class="self-center text-xl font-semibold whitespace-nowrap">
                 {{ __('app.task_manager') }}
             </span>
         </a>
