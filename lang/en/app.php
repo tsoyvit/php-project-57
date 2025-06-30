@@ -21,7 +21,7 @@ return [
     'delete' => 'Delete',
     'edit' => 'Edit',
     'update' => 'Update',
-    'greeting' => 'Hello from Hexlet!',
+    'greeting' => 'Hello!',
     'homeBody' => 'This is a simple Laravel task manager',
     'push' => 'Push me'
 
