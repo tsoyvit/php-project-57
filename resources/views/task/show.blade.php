@@ -3,7 +3,13 @@
 
     <h2 class="mb-5" style="line-height: 48px; font-size: 2rem;">
         {{ __('task.Viewing an issue') }} {{ $task->name }}
-        <a href="{{ route('tasks.edit', $task) }}">⚙</a>
+        @can('update', $task)
+        <a href="{{ route('tasks.edit', $task) }}"
+           class="ml-2 inline-flex items-center justify-center w-8 h-8 text-blue-500 hover:text-white hover:bg-blue-500 bg-blue-100 rounded-full transition"
+           title="{{ __('task.Edit') }}">
+            ⚙
+        </a>
+        @endcan
     </h2>
     <p>
         <span class="font-black">{{ __('task.name') }}:</span>
